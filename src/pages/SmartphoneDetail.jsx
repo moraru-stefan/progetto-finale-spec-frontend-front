@@ -74,12 +74,12 @@ return (
           <div className="card">
             <div className="card-body">
               <p><strong>Categoria:</strong> {phone.category}</p>
-              <p><strong>Brand:</strong> {phone.brand}</p>
+              <p><strong>Marca:</strong> {phone.brand}</p>
               <p><strong>Prezzo:</strong> {phone.price} €</p>
               <p><strong>Sistema operativo:</strong> {phone.os}</p>
               <p><strong>Schermo:</strong> {phone.screenSize}</p>
               <p><strong>RAM:</strong> {phone.ram}</p>
-              <p><strong>Storage:</strong> {phone.storage}</p>
+              <p><strong>Memoria:</strong> {phone.storage}</p>
             </div>
           </div>
 

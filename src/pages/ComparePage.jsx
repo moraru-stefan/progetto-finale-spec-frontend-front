@@ -19,7 +19,6 @@ const ComparePage = ({ compareIds }) => {
     return <p>Seleziona almeno 2 smartphone per confrontarli.</p>;
   }
 
-
   // Estraggo i due smartphone selezionati
   const [first, second] = phones;
 
@@ -32,11 +31,19 @@ const ComparePage = ({ compareIds }) => {
           <div className="card">
             <div className="card-body">
               <h2 className="h4">{first.title}</h2>
+              {/* Colonna immagine */}
+              <div className="col-12 col-md-5 text-center">
+                <img
+                  src={first.imageUrl}
+                  alt={first.title}
+                  className="phone-detail-img mb-3"
+                />
+              </div>
               <p>
                 <strong>Categoria:</strong> {first.category}
               </p>
               <p>
-                <strong>Brand:</strong> {first.brand}
+                <strong>Marca:</strong> {first.brand}
               </p>
               <p>
                 <strong>Prezzo:</strong> {first.price} €
@@ -51,7 +58,7 @@ const ComparePage = ({ compareIds }) => {
                 <strong>RAM:</strong> {first.ram}
               </p>
               <p>
-                <strong>Storage:</strong> {first.storage}
+                <strong>Memoria:</strong> {first.storage}
               </p>
             </div>
           </div>
@@ -61,11 +68,19 @@ const ComparePage = ({ compareIds }) => {
           <div className="card">
             <div className="card-body">
               <h2 className="h4">{second.title}</h2>
+              {/* Colonna immagine */}
+              <div className="col-12 col-md-5 text-center">
+                <img
+                  src={second.imageUrl}
+                  alt={second.title}
+                  className="phone-detail-img mb-3"
+                />
+              </div>
               <p>
                 <strong>Categoria:</strong> {second.category}
               </p>
               <p>
-                <strong>Brand:</strong> {second.brand}
+                <strong>Marca:</strong> {second.brand}
               </p>
               <p>
                 <strong>Prezzo:</strong> {second.price} €
@@ -80,7 +95,7 @@ const ComparePage = ({ compareIds }) => {
                 <strong>RAM:</strong> {second.ram}
               </p>
               <p>
-                <strong>Storage:</strong> {second.storage}
+                <strong>Memoria:</strong> {second.storage}
               </p>
             </div>
           </div>
