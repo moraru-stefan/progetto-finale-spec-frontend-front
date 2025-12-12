@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SmartphoneList = ({ smartphones }) => {
   // Stato per la stringa di ricerca inserita dall'utente
@@ -94,9 +95,10 @@ const SmartphoneList = ({ smartphones }) => {
 
       {/* Lista filtrata e ordinata */}
       <ul>
-        {filteredSmartphones.map((phone, index) => (
-          <li key={index}>
+        {filteredSmartphones.map((phone) => (
+          <li key={phone.id}>
             {phone.title} - {phone.category}
+            <Link to={`/smartphones/${phone.id}`}>Dettagli</Link>
           </li>
         ))}
       </ul>
