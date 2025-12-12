@@ -34,60 +34,64 @@ const SmartphoneDetail = ({
     );
   }
 
-  return (
-    <div>
-      <img src={phone.imageUrl} alt={phone.title} className="img-fluid mb-3" />
-      <h1 className="mb-3">{phone.title}</h1>
+return (
+  <div className="row justify-content-center">
+    <div className="col-12 col-lg-10">
+      <div className="row align-items-start g-4">
+        {/* Colonna immagine */}
+        <div className="col-12 col-md-5 text-center">
+          <img
+            src={phone.imageUrl}
+            alt={phone.title}
+            className="phone-detail-img mb-3"
+          />
+        </div>
 
-      <button
-        className="btn btn-sm btn-outline-primary mb-3"
-        onClick={() => toggleFavorite(phone.id)}
-      >
-        {favorites.includes(phone.id)
-          ? "★ Tolgi dai preferiti"
-          : "☆ Aggiungi ai preferiti"}
-      </button>
+        {/* Colonna testo/dettagli */}
+        <div className="col-12 col-md-7">
+          <h1 className="mb-3 h3">{phone.title}</h1>
 
-      <button
-        className="btn btn-sm btn-outline-secondary mb-3 ms-2"
-        onClick={() => toggleCompare(phone.id)}
-      >
-        {compareIds.includes(phone.id)
-          ? "Rimuovi dal confronto"
-          : "Aggiungi al confronto"}
-      </button>
+          <div className="d-flex flex-wrap gap-2 mb-3">
+            <button
+              className="btn btn-sm btn-outline-primary"
+              onClick={() => toggleFavorite(phone.id)}
+            >
+              {favorites.includes(phone.id)
+                ? "★ Tolgi dai preferiti"
+                : "☆ Aggiungi ai preferiti"}
+            </button>
 
-      <div className="card">
-        <div className="card-body">
-          <p>
-            <strong>Categoria:</strong> {phone.category}
-          </p>
-          <p>
-            <strong>Brand:</strong> {phone.brand}
-          </p>
-          <p>
-            <strong>Prezzo:</strong> {phone.price} €
-          </p>
-          <p>
-            <strong>Sistema operativo:</strong> {phone.os}
-          </p>
-          <p>
-            <strong>Schermo:</strong> {phone.screenSize}
-          </p>
-          <p>
-            <strong>RAM:</strong> {phone.ram}
-          </p>
-          <p>
-            <strong>Storage:</strong> {phone.storage}
-          </p>
+            <button
+              className="btn btn-sm btn-outline-secondary"
+              onClick={() => toggleCompare(phone.id)}
+            >
+              {compareIds.includes(phone.id)
+                ? "Rimuovi dal confronto"
+                : "Aggiungi al confronto"}
+            </button>
+          </div>
+
+          <div className="card">
+            <div className="card-body">
+              <p><strong>Categoria:</strong> {phone.category}</p>
+              <p><strong>Brand:</strong> {phone.brand}</p>
+              <p><strong>Prezzo:</strong> {phone.price} €</p>
+              <p><strong>Sistema operativo:</strong> {phone.os}</p>
+              <p><strong>Schermo:</strong> {phone.screenSize}</p>
+              <p><strong>RAM:</strong> {phone.ram}</p>
+              <p><strong>Storage:</strong> {phone.storage}</p>
+            </div>
+          </div>
+
+          <Link className="btn btn-link mt-3" to="/">
+            Torna alla lista
+          </Link>
         </div>
       </div>
-
-      <Link className="btn btn-link mt-3" to="/">
-        Torna alla lista
-      </Link>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default SmartphoneDetail;
