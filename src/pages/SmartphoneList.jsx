@@ -100,30 +100,43 @@ const SmartphoneList = ({
       </div>
 
       {/* Lista filtrata e ordinata */}
-      <ul>
-        {filteredSmartphones.map((phone) => (
-          <li key={phone.id}>
-            {phone.title} - {phone.category}{" "}
+<div className="row g-3">
+  {filteredSmartphones.map((phone) => (
+    <div key={phone.id} className="col-12 col-md-6">
+      <div className="card h-100 shadow-sm">
+        <div className="card-body d-flex flex-column">
+          <h2 className="h5 mb-1">{phone.title}</h2>
+          <p className="text-muted mb-2 text-uppercase small">
+            {phone.category}
+          </p>
+
+          <div className="mt-auto d-flex flex-wrap gap-2">
             <button
-              className="btn btn-sm btn-outline-secondary me-2"
+              className="btn btn-sm btn-outline-secondary"
               onClick={() => toggleCompare(phone.id)}
             >
               {compareIds.includes(phone.id)
-                ? "Rimuovi dal confronto"
+                ? "Rimuovi confronto"
                 : "Confronta"}
             </button>
             <button
-              className="btn btn-sm btn-outline-primary me-2"
+              className="btn btn-sm btn-outline-primary"
               onClick={() => toggleFavorite(phone.id)}
             >
               {favorites.includes(phone.id)
-                ? "★ Togli dai preferiti"
+                ? "★ Preferito"
                 : "☆ Aggiungi ai preferiti"}
             </button>
-            <Link to={`/smartphones/${phone.id}`}>Dettagli</Link>
-          </li>
-        ))}
-      </ul>
+            <Link className="btn btn-sm btn-primary ms-auto" to={`/smartphones/${phone.id}`}>
+              Dettagli
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
     </div>
   );
 };

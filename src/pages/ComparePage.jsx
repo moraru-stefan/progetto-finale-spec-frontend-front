@@ -1,19 +1,27 @@
-const ComparePage = ({ smartphones, compareIds }) => {
-  // Filtro gli smartphone per prendere solo quelli selezionati
-  const selected = smartphones.filter((s) => compareIds.includes(s.id));
+import { useEffect, useState } from "react";
 
-  // Se ci sono meno di 2 smartphone selezionati, mostro un messaggio
-  if (selected.length < 2) {
-    return (
-      <p>
-        Seleziona almeno <strong>2</strong> smartphone dalla lista o dal
-        dettaglio per confrontarli.
-      </p>
-    );
+const ComparePage = ({ compareIds }) => {
+  const [phones, setPhones] = useState([]);
+
+  useEffect(() => {
+    if (compareIds.length < 2) return;
+
+    Promise.all(
+      compareIds.map((id) =>
+        fetch(`http://localhost:3001/smartphones/${id}`)
+          .then((res) => res.json())
+          .then((data) => data.smartphone)
+      )
+    ).then(setPhones);
+  }, [compareIds]);
+
+  if (phones.length < 2) {
+    return <p>Seleziona almeno 2 smartphone per confrontarli.</p>;
   }
 
+
   // Estraggo i due smartphone selezionati
-  const [first, second] = selected;
+  const [first, second] = phones;
 
   return (
     <div>

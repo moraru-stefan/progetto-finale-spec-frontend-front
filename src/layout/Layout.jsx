@@ -3,10 +3,13 @@ import { Outlet, Link } from "react-router-dom";
 const Layout = () => {
   return (
     <div className="container py-3">
-      <nav className="mb-3 d-flex gap-3">
-        <Link to="/">Lista</Link>
-        <Link to="/compare">Confronta</Link>
-        <Link to="/favorites">Preferiti</Link>
+      <nav className="mb-3 d-flex justify-content-between align-items-center">
+        <h1 className="h4 m-0">Comparatore Smartphone</h1>
+        <div className="app-navbar">
+          <Link to="/">Lista</Link>
+          <Link to="/compare">Confronta</Link>
+          <Link to="/favorites">Preferiti</Link>
+        </div>
       </nav>
       <Outlet />
     </div>
