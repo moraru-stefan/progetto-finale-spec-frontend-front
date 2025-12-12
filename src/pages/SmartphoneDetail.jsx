@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const SmartphoneDetail = ({
-  smartphones,
   favorites,
   toggleFavorite,
   compareIds,
@@ -11,8 +11,18 @@ const SmartphoneDetail = ({
   const { id } = useParams();
   const phoneId = Number(id);
 
-  // cerco nello stesso array passato da App
-  const phone = smartphones.find((s) => s.id === phoneId);
+  // stato locale per il singolo smartphone
+  const [phone, setPhone] = useState(null);
+
+  // chiamata API per /smartphones/:id
+  useEffect(() => {
+    if (!phoneId) return;
+
+    fetch(`http://localhost:3001/smartphones/${phoneId}`)
+      .then((res) => res.json())
+      .then((data) => setPhone(data.smartphone))
+      .catch((err) => console.error(err));
+  }, [phoneId]);
 
   // Se lo smartphone con l'id specificato non esiste, mostro un messaggio di errore e un link per tornare alla lista
   if (!phone) {

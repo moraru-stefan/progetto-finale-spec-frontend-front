@@ -71,7 +71,6 @@ function App() {
             path="/smartphones/:id"
             element={
               <SmartphoneDetail
-                smartphones={smartphones}
                 favorites={favorites}
                 toggleFavorite={toggleFavorite}
                 compareIds={compareIds}
