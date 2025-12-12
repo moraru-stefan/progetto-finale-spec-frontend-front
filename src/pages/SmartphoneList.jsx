@@ -78,7 +78,7 @@ const SmartphoneList = ({
 
       <div className="row g-2 mb-3">
         {/* Input per ricerca per titolo */}
-        <div className="col-12 col-md-4">
+        <div className="col-12 col-md-4 col-lg-8">
           <input
             type="text"
             className="form-control"
@@ -89,7 +89,7 @@ const SmartphoneList = ({
         </div>
 
         {/* Select per filtro per categoria */}
-        <div className="col-6 col-md-4">
+        <div className="col-6 col-md-4 col-lg-2">
           <select
             className="form-select"
             value={categoryFilter}
@@ -105,7 +105,7 @@ const SmartphoneList = ({
         </div>
 
         {/* Select per ordinamento del titolo */}
-        <div className="col-6 col-md-4">
+        <div className="col-6 col-md-4 col-lg-2">
           <select
             className="form-select"
             value={sortDirection}
@@ -132,6 +132,7 @@ const SmartphoneList = ({
               </div>
               <div className="card-body d-flex flex-column">
                 <h2 className="h5 mb-1">{phone.title}</h2>
+                <p>{phone.price} €</p>
                 <p className="text-muted mb-2 text-uppercase small">
                   {phone.category}
                 </p>
