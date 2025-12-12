@@ -3,7 +3,8 @@
 Questo progetto permette di cercare, filtrare, visualizzare nel dettaglio e confrontare diversi modelli di smartphone. L’utente può anche aggiungere i propri modelli preferiti a una lista dedicata sempre accessibile.
 L’app comunica con un backend già fornito, che gestisce i dati attraverso API REST.
 
-📱 Funzionalità principali
+## 📱 Funzionalità principali
+
 ✔️ Lista Smartphone
 
 Visualizzazione dei modelli con titolo e categoria
