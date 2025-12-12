@@ -18,7 +18,6 @@ Ordinamento alfabetico
 ✔️ Dettaglio Smartphone
 
 Scheda dedicata con tutte le specifiche dello smartphone
-(brand, prezzo, memoria, batteria, anno, ecc.)
 
 ✔️ Comparatore
 
