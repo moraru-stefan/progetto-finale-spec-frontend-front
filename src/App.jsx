@@ -21,6 +21,24 @@ function App() {
     );
   }
 
+  // Stato che contiene gli ID degli smartphone selezionati per il confronto
+  const [compareIds, setCompareIds] = useState([]);
+  // Funzione per aggiungere o rimuovere uno smartphone dal confronto
+  function toggleCompare(id) {
+    setCompareIds((prev) => {
+      if (prev.includes(id)) {
+        // Se l'id è già presente, lo rimuovo
+        return prev.filter((cid) => cid !== id);
+      }
+      if (prev.length >= 2) {
+        // Se ci sono già 2 smartphone, sostituisco il primo con il nuovo
+        return [prev[1], id];
+      }
+      // Altrimenti aggiungo il nuovo id
+      return [...prev, id];
+    });
+  }
+
   useEffect(() => {
     // Recupero dei dati dal backend all'avvio dell'app
     fetch("http://localhost:3001/smartphones")
@@ -43,6 +61,8 @@ function App() {
                 smartphones={smartphones}
                 favorites={favorites}
                 toggleFavorite={toggleFavorite}
+                compareIds={compareIds}
+                toggleCompare={toggleCompare}
               />
             }
           />
@@ -54,7 +74,16 @@ function App() {
                 smartphones={smartphones}
                 favorites={favorites}
                 toggleFavorite={toggleFavorite}
+                compareIds={compareIds}
+                toggleCompare={toggleCompare}
               />
+            }
+          />
+
+          <Route
+            path="/compare"
+            element={
+              <ComparePage smartphones={smartphones} compareIds={compareIds} />
             }
           />
 

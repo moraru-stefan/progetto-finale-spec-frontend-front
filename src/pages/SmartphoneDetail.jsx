@@ -1,6 +1,12 @@
 import { useParams, Link } from "react-router-dom";
 
-const SmartphoneDetail = ({ smartphones, favorites, toggleFavorite }) => {
+const SmartphoneDetail = ({
+  smartphones,
+  favorites,
+  toggleFavorite,
+  compareIds,
+  toggleCompare,
+}) => {
   // prendo l'id dalla URL /smartphones/:id
   const { id } = useParams();
   const phoneId = Number(id);
@@ -30,6 +36,15 @@ const SmartphoneDetail = ({ smartphones, favorites, toggleFavorite }) => {
         {favorites.includes(phone.id)
           ? "★ Tolgi dai preferiti"
           : "☆ Aggiungi ai preferiti"}
+      </button>
+
+      <button
+        className="btn btn-sm btn-outline-secondary mb-3 ms-2"
+        onClick={() => toggleCompare(phone.id)}
+      >
+        {compareIds.includes(phone.id)
+          ? "Rimuovi dal confronto"
+          : "Aggiungi al confronto"}
       </button>
 
       <div className="card">

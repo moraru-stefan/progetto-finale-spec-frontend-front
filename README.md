@@ -1,16 +1,30 @@
-# React + Vite
+## Comparatore di Smartphone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Questo progetto permette di cercare, filtrare, visualizzare nel dettaglio e confrontare diversi modelli di smartphone. L’utente può anche aggiungere i propri modelli preferiti a una lista dedicata sempre accessibile.
+L’app comunica con un backend già fornito, che gestisce i dati attraverso API REST.
 
-Currently, two official plugins are available:
+📱 Funzionalità principali
+✔️ Lista Smartphone
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Visualizzazione dei modelli con titolo e categoria
 
-## React Compiler
+Ricerca per titolo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Filtro per categoria
 
-## Expanding the ESLint configuration
+Ordinamento alfabetico
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+✔️ Dettaglio Smartphone
+
+Scheda dedicata con tutte le specifiche dello smartphone
+(brand, prezzo, memoria, batteria, anno, ecc.)
+
+✔️ Comparatore
+
+Possibilità di scegliere due smartphone e confrontarli affiancati
+
+✔️ Preferiti
+
+Aggiunta e rimozione dei preferiti da qualunque sezione
+
+Lista preferiti sempre consultabile
