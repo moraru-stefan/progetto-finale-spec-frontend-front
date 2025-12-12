@@ -1,5 +1,6 @@
-import { useState } from "react";
+
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const SmartphoneList = ({
   smartphones,
@@ -15,6 +16,23 @@ const SmartphoneList = ({
   // Stato per la direzione dell'ordinamento (default crescente "asc")
   const [sortDirection, setSortDirection] = useState("asc");
 
+   // Smartphone completi (con imageUrl, brand, ecc.)
+  const [fullPhones, setFullPhones] = useState([]);
+
+  useEffect(() => {
+    if (!smartphones.length) return;
+
+    Promise.all(
+      smartphones.map((s) =>
+        fetch(`http://localhost:3001/smartphones/${s.id}`)
+          .then((res) => res.json())
+          .then((data) => data.smartphone)
+      )
+    )
+      .then(setFullPhones)
+      .catch((err) => console.error(err));
+  }, [smartphones]);
+
   // Estraggo tutte le categorie dagli smartphone e rimuovo i duplicati
   const categories = [];
   for (const phone of smartphones) {
@@ -26,7 +44,7 @@ const SmartphoneList = ({
   // Funzione immediatamente invocata per filtrare e ordinare gli smartphone
   const filteredSmartphones = (() => {
     // Copio dell'array originale, così non si modifica direttamente la prop
-    let list = [...smartphones];
+    let list = [...fullPhones];
 
     // Filtro per ricerca se search non è vuoto
     if (search) {
@@ -100,43 +118,53 @@ const SmartphoneList = ({
       </div>
 
       {/* Lista filtrata e ordinata */}
-<div className="row g-3">
-  {filteredSmartphones.map((phone) => (
-    <div key={phone.id} className="col-12 col-md-6">
-      <div className="card h-100 shadow-sm">
-        <div className="card-body d-flex flex-column">
-          <h2 className="h5 mb-1">{phone.title}</h2>
-          <p className="text-muted mb-2 text-uppercase small">
-            {phone.category}
-          </p>
+      <div className="row g-3">
+        {filteredSmartphones.map((phone) => (
+          <div key={phone.id} className="col-12 col-md-6">
+            <div className="card h-100 shadow-sm">
+              {/* immagine in alto */}
+              <div className="text-center pt-3">
+                <img
+                  src={phone.imageUrl}
+                  alt={phone.title}
+                  className="phone-thumb"
+                />
+              </div>
+              <div className="card-body d-flex flex-column">
+                <h2 className="h5 mb-1">{phone.title}</h2>
+                <p className="text-muted mb-2 text-uppercase small">
+                  {phone.category}
+                </p>
 
-          <div className="mt-auto d-flex flex-wrap gap-2">
-            <button
-              className="btn btn-sm btn-outline-secondary"
-              onClick={() => toggleCompare(phone.id)}
-            >
-              {compareIds.includes(phone.id)
-                ? "Rimuovi confronto"
-                : "Confronta"}
-            </button>
-            <button
-              className="btn btn-sm btn-outline-primary"
-              onClick={() => toggleFavorite(phone.id)}
-            >
-              {favorites.includes(phone.id)
-                ? "★ Preferito"
-                : "☆ Aggiungi ai preferiti"}
-            </button>
-            <Link className="btn btn-sm btn-primary ms-auto" to={`/smartphones/${phone.id}`}>
-              Dettagli
-            </Link>
+                <div className="mt-auto d-flex flex-wrap gap-2">
+                  <button
+                    className="btn btn-sm btn-outline-secondary"
+                    onClick={() => toggleCompare(phone.id)}
+                  >
+                    {compareIds.includes(phone.id)
+                      ? "Rimuovi confronto"
+                      : "Confronta"}
+                  </button>
+                  <button
+                    className="btn btn-sm btn-outline-primary"
+                    onClick={() => toggleFavorite(phone.id)}
+                  >
+                    {favorites.includes(phone.id)
+                      ? "★ Preferito"
+                      : "☆ Aggiungi ai preferiti"}
+                  </button>
+                  <Link
+                    className="btn btn-sm btn-primary ms-auto"
+                    to={`/smartphones/${phone.id}`}
+                  >
+                    Dettagli
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
-    </div>
-  ))}
-</div>
-
     </div>
   );
 };
