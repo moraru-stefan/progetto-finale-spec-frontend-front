@@ -1,9 +1,6 @@
-
 import { useParams, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 
-const SmartphoneDetail = ({ smartphones }) => {
-    
+const SmartphoneDetail = ({ smartphones, favorites, toggleFavorite }) => {
   // prendo l'id dalla URL /smartphones/:id
   const { id } = useParams();
   const phoneId = Number(id);
@@ -23,17 +20,41 @@ const SmartphoneDetail = ({ smartphones }) => {
 
   return (
     <div>
+      <img src={phone.imageUrl} alt={phone.title} className="img-fluid mb-3" />
       <h1 className="mb-3">{phone.title}</h1>
+
+      <button
+        className="btn btn-sm btn-outline-primary mb-3"
+        onClick={() => toggleFavorite(phone.id)}
+      >
+        {favorites.includes(phone.id)
+          ? "★ Tolgi dai preferiti"
+          : "☆ Aggiungi ai preferiti"}
+      </button>
 
       <div className="card">
         <div className="card-body">
-          <p><strong>Categoria:</strong> {phone.category}</p>
-          <p><strong>Brand:</strong> {phone.brand}</p>
-          <p><strong>Prezzo:</strong> {phone.price} €</p>
-          <p><strong>Sistema operativo:</strong> {phone.os}</p>
-          <p><strong>Schermo:</strong> {phone.screenSize}</p>
-          <p><strong>RAM:</strong> {phone.ram}</p>
-          <p><strong>Storage:</strong> {phone.storage}</p>
+          <p>
+            <strong>Categoria:</strong> {phone.category}
+          </p>
+          <p>
+            <strong>Brand:</strong> {phone.brand}
+          </p>
+          <p>
+            <strong>Prezzo:</strong> {phone.price} €
+          </p>
+          <p>
+            <strong>Sistema operativo:</strong> {phone.os}
+          </p>
+          <p>
+            <strong>Schermo:</strong> {phone.screenSize}
+          </p>
+          <p>
+            <strong>RAM:</strong> {phone.ram}
+          </p>
+          <p>
+            <strong>Storage:</strong> {phone.storage}
+          </p>
         </div>
       </div>
 

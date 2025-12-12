@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const SmartphoneList = ({ smartphones }) => {
+const SmartphoneList = ({ smartphones, favorites, toggleFavorite }) => {
   // Stato per la stringa di ricerca inserita dall'utente
   const [search, setSearch] = useState("");
   // Stato per il filtro per categoria selezionata dall'utente
@@ -97,7 +97,15 @@ const SmartphoneList = ({ smartphones }) => {
       <ul>
         {filteredSmartphones.map((phone) => (
           <li key={phone.id}>
-            {phone.title} - {phone.category}
+            {phone.title} - {phone.category}{" "}
+            <button
+              className="btn btn-sm btn-outline-primary me-2"
+              onClick={() => toggleFavorite(phone.id)}
+            >
+              {favorites.includes(phone.id)
+                ? "★ Tolgi dai preferiti"
+                : "☆ Aggiungi ai preferiti"}
+            </button>
             <Link to={`/smartphones/${phone.id}`}>Dettagli</Link>
           </li>
         ))}

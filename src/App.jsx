@@ -11,6 +11,16 @@ function App() {
   // Stato che contiene la lista degli smartphone
   const [smartphones, setSmartphones] = useState([]);
 
+  // Stato che contiene gli ID degli smartphone preferiti
+  const [favorites, setFavorites] = useState([]);
+  // Funzione per aggiungere o rimuovere uno smartphone dai preferiti
+  function toggleFavorite(id) {
+    setFavorites((prev) =>
+      // Se l'id è già nei preferiti lo rimuove, altrimenti lo aggiunge
+      prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id]
+    );
+  }
+
   useEffect(() => {
     // Recupero dei dati dal backend all'avvio dell'app
     fetch("http://localhost:3001/smartphones")
@@ -22,32 +32,48 @@ function App() {
       .catch((err) => console.error("Errore nel fetch:", err));
   }, []);
 
-return (
+  return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
           <Route
             path="/"
-            element={<SmartphoneList smartphones={smartphones} />}
+            element={
+              <SmartphoneList
+                smartphones={smartphones}
+                favorites={favorites}
+                toggleFavorite={toggleFavorite}
+              />
+            }
           />
+
           <Route
             path="/smartphones/:id"
-            element={<SmartphoneDetail smartphones={smartphones} />}
+            element={
+              <SmartphoneDetail
+                smartphones={smartphones}
+                favorites={favorites}
+                toggleFavorite={toggleFavorite}
+              />
+            }
           />
-          <Route
-            path="/compare"
-            element={<ComparePage smartphones={smartphones} />}
-          />
+
           <Route
             path="/favorites"
-            element={<FavoritesPage smartphones={smartphones} />}
+            element={
+              <FavoritesPage
+                smartphones={smartphones}
+                favorites={favorites}
+                toggleFavorite={toggleFavorite}
+              />
+            }
           />
+
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
   );
-
 }
 
 export default App;
