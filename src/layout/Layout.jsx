@@ -5,7 +5,7 @@ const Layout = () => {
     <div className="container py-3">
       <nav className="mb-3 d-flex justify-content-between align-items-center">
         <div className="app-navbar">
-          <Link to="/">Lista</Link>
+          <Link to="/">Home</Link>
           <Link to="/compare">Confronta</Link>
           <Link to="/favorites">Preferiti</Link>
         </div>

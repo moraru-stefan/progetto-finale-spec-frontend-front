@@ -151,8 +151,8 @@ const SmartphoneList = ({
                     onClick={() => toggleFavorite(phone.id)}
                   >
                     {favorites.includes(phone.id)
-                      ? <i class="fa-solid fa-heart"></i> 
-                      : <i class="fa-regular fa-heart"></i>}
+                      ? <i className="fa-solid fa-heart"></i> 
+                      : <i className="fa-regular fa-heart"></i>}
                   </button>
                   <Link
                     className="btn btn-sm btn-primary ms-auto"

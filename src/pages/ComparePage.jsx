@@ -22,87 +22,55 @@ const ComparePage = ({ compareIds }) => {
   // Estraggo i due smartphone selezionati
   const [first, second] = phones;
 
-  return (
-    <div>
-      <h1 className="mb-3">Confronto Smartphone</h1>
+return (
+  <div className="row justify-content-center">
+    <div className="col-12 col-lg-10">
+      <h1 className="mb-3 h4 text-center">Confronto Smartphone</h1>
 
-      <div className="row">
-        <div className="col-12 col-md-6 mb-3">
-          <div className="card">
-            <div className="card-body">
-              <h2 className="h4">{first.title}</h2>
-              {/* Colonna immagine */}
-              <div className="col-12 col-md-5 text-center">
+      <div className="row g-3 align-items-start">
+        {[first, second].map((phone) => (
+          <div key={phone.id} className="col-12 col-md-6">
+            <div className="card h-100 shadow-sm">
+              <div className="text-center pt-3">
                 <img
-                  src={first.imageUrl}
-                  alt={first.title}
-                  className="phone-detail-img mb-3"
+                  src={phone.imageUrl}
+                  alt={phone.title}
+                  className="phone-detail-img mb-2"
                 />
               </div>
-              <p>
-                <strong>Categoria:</strong> {first.category}
-              </p>
-              <p>
-                <strong>Marca:</strong> {first.brand}
-              </p>
-              <p>
-                <strong>Prezzo:</strong> {first.price} €
-              </p>
-              <p>
-                <strong>Sistema operativo:</strong> {first.os}
-              </p>
-              <p>
-                <strong>Schermo:</strong> {first.screenSize}
-              </p>
-              <p>
-                <strong>RAM:</strong> {first.ram}
-              </p>
-              <p>
-                <strong>Memoria:</strong> {first.storage}
-              </p>
-            </div>
-          </div>
-        </div>
+              <div className="card-body py-3">
+                <h2 className="h6 mb-2 text-center">{phone.title}</h2>
 
-        <div className="col-12 col-md-6 mb-3">
-          <div className="card">
-            <div className="card-body">
-              <h2 className="h4">{second.title}</h2>
-              {/* Colonna immagine */}
-              <div className="col-12 col-md-5 text-center">
-                <img
-                  src={second.imageUrl}
-                  alt={second.title}
-                  className="phone-detail-img mb-3"
-                />
+                <p className="mb-1">
+                  <strong>Categoria:</strong> {phone.category}
+                </p>
+                <p className="mb-1">
+                  <strong>Marca:</strong> {phone.brand}
+                </p>
+                <p className="mb-1">
+                  <strong>Prezzo:</strong> {phone.price} €
+                </p>
+                <p className="mb-1">
+                  <strong>Sistema operativo:</strong> {phone.os}
+                </p>
+                <p className="mb-1">
+                  <strong>Schermo:</strong> {phone.screenSize}
+                </p>
+                <p className="mb-1">
+                  <strong>RAM:</strong> {phone.ram}
+                </p>
+                <p className="mb-0">
+                  <strong>Memoria:</strong> {phone.storage}
+                </p>
               </div>
-              <p>
-                <strong>Categoria:</strong> {second.category}
-              </p>
-              <p>
-                <strong>Marca:</strong> {second.brand}
-              </p>
-              <p>
-                <strong>Prezzo:</strong> {second.price} €
-              </p>
-              <p>
-                <strong>Sistema operativo:</strong> {second.os}
-              </p>
-              <p>
-                <strong>Schermo:</strong> {second.screenSize}
-              </p>
-              <p>
-                <strong>RAM:</strong> {second.ram}
-              </p>
-              <p>
-                <strong>Memoria:</strong> {second.storage}
-              </p>
             </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default ComparePage;
