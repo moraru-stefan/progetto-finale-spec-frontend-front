@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -16,7 +15,7 @@ const SmartphoneList = ({
   // Stato per la direzione dell'ordinamento (default crescente "asc")
   const [sortDirection, setSortDirection] = useState("asc");
 
-   // Smartphone completi (con imageUrl, brand, ecc.)
+  // Smartphone completi (con imageUrl, brand, ecc.)
   const [fullPhones, setFullPhones] = useState([]);
 
   useEffect(() => {
@@ -120,23 +119,41 @@ const SmartphoneList = ({
       {/* Lista filtrata e ordinata */}
       <div className="row g-3">
         {filteredSmartphones.map((phone) => (
-          <div key={phone.id} className="col-12 col-md-6">
-            <div className="card h-100 shadow-sm">
-              {/* immagine in alto */}
-              <div className="text-center pt-3">
-                <img
-                  src={phone.imageUrl}
-                  alt={phone.title}
-                  className="phone-thumb"
-                />
-              </div>
-              <div className="card-body d-flex flex-column">
-                <h2 className="h5 mb-1">{phone.title}</h2>
-                <p>{phone.price} €</p>
+          <div key={phone.id} className="col-6 col-md-4 col-lg-2">
+            <div className="card shadow-sm h-100">
+              <div className="card-body d-flex flex-column position-relative">
+                <button
+                  className="btn-favorites btn btn-sm btn-outline-primary"
+                  onClick={() => toggleFavorite(phone.id)}
+                >
+                  {favorites.includes(phone.id) ? (
+                    <i className="fa-solid fa-heart"></i>
+                  ) : (
+                    <i className="fa-regular fa-heart"></i>
+                  )}
+                </button>
+
+                {/* immagine in alto */}
+                <div className="text-center">
+                  <img
+                    src={phone.imageUrl}
+                    alt={phone.title}
+                    className="phone-thumb"
+                  />
+                </div>
+                <div className="mt-2 text-center">
+                  <Link
+                    className="btn btn-primary"
+                    to={`/smartphones/${phone.id}`}
+                  >
+                    Dettagli
+                  </Link>
+                </div>
+                <h2 className="h6 mt-2 text-center">{phone.title}</h2>
+                <p className="text-center">{phone.price} €</p>
                 <p className="text-muted mb-2 text-uppercase small">
                   {phone.category}
                 </p>
-
                 <div className="mt-auto d-flex flex-wrap gap-2">
                   <button
                     className="btn btn-sm btn-outline-secondary"
@@ -146,20 +163,6 @@ const SmartphoneList = ({
                       ? "Rimuovi confronto"
                       : "Confronta"}
                   </button>
-                  <button
-                    className="btn btn-sm btn-outline-primary"
-                    onClick={() => toggleFavorite(phone.id)}
-                  >
-                    {favorites.includes(phone.id)
-                      ? <i className="fa-solid fa-heart"></i> 
-                      : <i className="fa-regular fa-heart"></i>}
-                  </button>
-                  <Link
-                    className="btn btn-sm btn-primary ms-auto"
-                    to={`/smartphones/${phone.id}`}
-                  >
-                    Dettagli
-                  </Link>
                 </div>
               </div>
             </div>
