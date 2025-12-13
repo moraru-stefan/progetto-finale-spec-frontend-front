@@ -34,64 +34,82 @@ const SmartphoneDetail = ({
     );
   }
 
-return (
-  <div className="row justify-content-center">
-    <div className="col-12 col-lg-10">
-      <div className="row align-items-start g-4">
-        {/* Colonna immagine */}
-        <div className="col-12 col-md-5 text-center">
-          <img
-            src={phone.imageUrl}
-            alt={phone.title}
-            className="phone-detail-img mb-3"
-          />
-        </div>
-
-        {/* Colonna testo/dettagli */}
-        <div className="col-12 col-md-7">
-          <h1 className="mb-3 h3">{phone.title}</h1>
-
-          <div className="d-flex flex-wrap gap-2 mb-3">
-            <button
-              className="btn btn-sm btn-outline-primary"
-              onClick={() => toggleFavorite(phone.id)}
-            >
-              {favorites.includes(phone.id)
-                ? "★ Tolgi dai preferiti"
-                : "☆ Aggiungi ai preferiti"}
-            </button>
-
-            <button
-              className="btn btn-sm btn-outline-secondary"
-              onClick={() => toggleCompare(phone.id)}
-            >
-              {compareIds.includes(phone.id)
-                ? "Rimuovi dal confronto"
-                : "Aggiungi al confronto"}
-            </button>
+  return (
+    <div className="row justify-content-center">
+      <div className="col-12 col-lg-10">
+        <div className="row align-items-start g-4">
+          {/* Colonna immagine */}
+          <div className="col-12 col-md-5 text-center">
+            <img
+              src={phone.imageUrl}
+              alt={phone.title}
+              className="phone-detail-img mb-3"
+            />
           </div>
 
-          <div className="card">
-            <div className="card-body">
-              <p><strong>Categoria:</strong> {phone.category}</p>
-              <p><strong>Marca:</strong> {phone.brand}</p>
-              <p><strong>Prezzo:</strong> {phone.price} €</p>
-              <p><strong>Sistema operativo:</strong> {phone.os}</p>
-              <p><strong>Schermo:</strong> {phone.screenSize}</p>
-              <p><strong>RAM:</strong> {phone.ram}</p>
-              <p><strong>Memoria:</strong> {phone.storage}</p>
+          {/* Colonna testo/dettagli */}
+          <div className="col-12 col-md-7">
+            <h1 className="mb-3 h3">{phone.title}</h1>
+
+            <div className="d-flex flex-wrap gap-2 mb-3">
+              <button
+                className="btn btn-sm btn-outline-primary"
+                onClick={() => toggleFavorite(phone.id)}
+              >
+                {favorites.includes(phone.id) ? (
+                  <i className="fa-solid fa-heart"></i>
+                ) : (
+                  <i className="fa-regular fa-heart"></i>
+                )}
+              </button>
+
+              <button
+                className="btn btn-sm btn-outline-secondary"
+                onClick={() => toggleCompare(phone.id)}
+              >
+                {compareIds.includes(phone.id)
+                  ? "Rimuovi dal confronto"
+                  : "Aggiungi al confronto"}
+              </button>
+            </div>
+
+            <div className="card">
+              <div className="card-body">
+                <p>
+                  <strong>Categoria:</strong> {phone.category}
+                </p>
+                <p>
+                  <strong>Marca:</strong> {phone.brand}
+                </p>
+                <p>
+                  <strong>Prezzo:</strong> {phone.price} €
+                </p>
+                <p>
+                  <strong>Sistema operativo:</strong> {phone.os}
+                </p>
+                <p>
+                  <strong>Schermo:</strong> {phone.screenSize}
+                </p>
+                <p>
+                  <strong>RAM:</strong> {phone.ram}
+                </p>
+                <p>
+                  <strong>Memoria:</strong> {phone.storage}
+                </p>
+
+                <div className="d-flex">
+                <Link className="btn btn-primary btn-link-home ms-auto" to="/">
+                  Torna alla lista
+                </Link>
+                </div>
+
+              </div>
             </div>
           </div>
-
-          <Link className="btn btn-link mt-3" to="/">
-            Torna alla lista
-          </Link>
         </div>
       </div>
     </div>
-  </div>
-);
-
+  );
 };
 
 export default SmartphoneDetail;
