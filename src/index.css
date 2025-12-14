@@ -67,3 +67,18 @@ body {
   top: 5px;
   right: 5px;
 }
+
+
+.scroll-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 25px;
+  color: #007bff;
+}
+
+
+
+
+
