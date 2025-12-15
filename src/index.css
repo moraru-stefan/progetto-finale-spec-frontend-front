@@ -34,11 +34,30 @@ body {
   object-fit: contain;
 }
 
-/* su schermi piccoli: tutto in colonna ma senza scroll orizzontale */
+/* su schermi piccoli: */
 @media (max-width: 576px) {
   .phone-detail-img {
     max-width: 220px;
     max-height: 220px;
+  }
+
+    .app-navbar .nav-link {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .app-navbar .nav-link .nav-icon {
+    font-size: 1.2rem;
+  }
+  
+  .app-navbar .nav-link span {
+    display: none; 
+  }
+}
+
+@media (max-width: 770px) {
+   .app-navbar .nav-link span {
+    display: none; 
   }
 }
 

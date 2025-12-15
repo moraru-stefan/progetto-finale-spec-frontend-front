@@ -5,14 +5,21 @@ const Layout = () => {
     <div className="container py-3">
       <nav className="mb-3 d-flex justify-content-center align-items-center">
         <div className="app-navbar">
-          <NavLink to="/" className="nav-link">
-            Home
+           <NavLink to="/" className="nav-link">
+            <i className="fa-solid fa-house nav-icon"></i>
+            <span>Home</span>
+          </NavLink>
+           <NavLink to="/smartphones" className="nav-link">
+            <i className="fa-solid fa-mobile-screen nav-icon"></i>
+            <span>Smartphones</span>
           </NavLink>
           <NavLink to="/compare" className="nav-link">
-            Confronta
+            <i className="fa-solid fa-balance-scale nav-icon"></i>
+            <span className="ms-1">Confronta</span>
           </NavLink>
-          <NavLink to="/favorites" className="nav-link">
-            Preferiti
+         <NavLink to="/favorites" className="nav-link">
+            <i className="fa-solid fa-heart nav-icon"></i>
+            <span>Preferiti</span>
           </NavLink>
         </div>
       </nav>

@@ -5,7 +5,7 @@ import SmartphoneList from "./pages/SmartphoneList";
 import SmartphoneDetail from "./pages/SmartphoneDetail";
 import ComparePage from "./pages/ComparePage";
 import FavoritesPage from "./pages/FavoritesPage";
-import NotFound from "./pages/NotFound";
+import HomePage from "./pages/HomePage";
 
 function App() {
   // Stato che contiene la lista degli smartphone
@@ -73,8 +73,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
+         <Route index element={<HomePage />} /> 
           <Route
-            path="/"
+            path="/smartphones"
             element={
               <SmartphoneList
                 smartphones={smartphones}
@@ -116,7 +117,6 @@ function App() {
             }
           />
 
-          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
