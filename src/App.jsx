@@ -12,7 +12,18 @@ function App() {
   const [smartphones, setSmartphones] = useState([]);
 
   // Stato che contiene gli ID degli smartphone preferiti
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(() => {
+    // Recupero dal localStorage il valore salvato con chiave "favorites"
+    const saved = localStorage.getItem("favorites");
+    // Se esistono, li converto in array, altrimenti array vuoto
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // Salvo i preferiti nel localStorage ogni volta che cambiano
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
   // Funzione per aggiungere o rimuovere uno smartphone dai preferiti
   function toggleFavorite(id) {
     setFavorites((prev) =>
@@ -22,7 +33,15 @@ function App() {
   }
 
   // Stato che contiene gli ID degli smartphone selezionati per il confronto
-  const [compareIds, setCompareIds] = useState([]);
+  const [compareIds, setCompareIds] = useState(() => {
+    const saved = localStorage.getItem("compareIds");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+  localStorage.setItem("compareIds", JSON.stringify(compareIds));
+}, [compareIds]);
+
   // Funzione per aggiungere o rimuovere uno smartphone dal confronto
   function toggleCompare(id) {
     setCompareIds((prev) => {

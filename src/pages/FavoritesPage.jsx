@@ -3,9 +3,16 @@ import { Link } from "react-router-dom";
 const FavoritesPage = ({ smartphones, favorites, toggleFavorite }) => {
   const favoritePhones = smartphones.filter((s) => favorites.includes(s.id));
 
-  if (favoritePhones.length === 0) {
-    return <p>Nessun preferito ancora.</p>;
-  }
+ if (favoritePhones.length === 0) {
+  return (
+    <div>
+      <h1 className="mb-3">Preferiti</h1>
+      <p className="text-muted">
+        Nessun preferito ancora. Aggiungi uno smartphone dalla lista principale.
+      </p>
+    </div>
+  );
+}
 
 return (
   <div>

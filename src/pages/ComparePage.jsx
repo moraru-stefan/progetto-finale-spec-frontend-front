@@ -15,9 +15,17 @@ const ComparePage = ({ compareIds }) => {
     ).then(setPhones);
   }, [compareIds]);
 
-  if (phones.length < 2) {
-    return <p>Seleziona almeno 2 smartphone per confrontarli.</p>;
-  }
+ if (phones.length < 2) {
+    return (
+    <div>
+      <h1 className="mb-3">Confronta</h1>
+      <p className="text-muted">
+        Seleziona almeno 2 smartphone dalla lista per visualizzare il confronto.
+      </p>
+    </div>
+  );
+}
+
 
   // Estraggo i due smartphone selezionati
   const [first, second] = phones;
