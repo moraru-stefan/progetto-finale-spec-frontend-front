@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Footer from "../components/Footer";
 
 const SmartphoneList = ({
   smartphones,
@@ -174,7 +175,7 @@ const SmartphoneList = ({
           ))}
         </div>
       )}
-
+      <Footer/>
     </div>
   );
 };

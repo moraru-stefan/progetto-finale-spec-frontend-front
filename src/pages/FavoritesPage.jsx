@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const FavoritesPage = ({ smartphones, favorites, toggleFavorite }) => {
   const favoritePhones = smartphones.filter((s) => favorites.includes(s.id));

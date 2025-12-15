@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Footer from "../components/Footer";
 
 const SmartphoneDetail = ({
   favorites,
@@ -98,7 +99,7 @@ const SmartphoneDetail = ({
                 </p>
 
                 <div className="d-flex">
-                <Link className="btn btn-primary btn-link-home ms-auto" to="/">
+                <Link className="btn btn-primary btn-link-home ms-auto" to="/smartphones">
                   Torna alla lista
                 </Link>
                 </div>
@@ -108,6 +109,7 @@ const SmartphoneDetail = ({
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

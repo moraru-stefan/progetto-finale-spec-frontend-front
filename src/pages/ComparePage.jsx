@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Footer from "../components/Footer";
 
 const ComparePage = ({ compareIds }) => {
   const [phones, setPhones] = useState([]);
@@ -76,6 +77,7 @@ return (
         ))}
       </div>
     </div>
+    <Footer/>
   </div>
 );
 
