@@ -1,30 +1,42 @@
 ## Comparatore di Smartphone
 
-Questo progetto permette di cercare, filtrare, visualizzare nel dettaglio e confrontare diversi modelli di smartphone. L’utente può anche aggiungere i propri modelli preferiti a una lista dedicata sempre accessibile.
+Questo progetto permette di cercare, filtrare, visualizzare nel dettaglio e confrontare diversi modelli di smartphone. L’utente può anche aggiungere i propri modelli preferiti a una lista dedicata sempre accessibile.  
 L’app comunica con un backend già fornito, che gestisce i dati attraverso API REST.
 
 ## 📱 Funzionalità principali
 
-✔️ Lista Smartphone
+✔️ **Lista Smartphone**  
+- Visualizzazione dei modelli con titolo e categoria  
+- Ricerca per titolo  
+- Filtro per categoria  
+- Ordinamento alfabetico  
 
-Visualizzazione dei modelli con titolo e categoria
+✔️ **Dettaglio Smartphone**  
+- Scheda dedicata con tutte le specifiche dello smartphone  
 
-Ricerca per titolo
+✔️ **Comparatore**  
+- Possibilità di scegliere due smartphone e confrontarli affiancati  
 
-Filtro per categoria
+✔️ **Preferiti**  
+- Aggiunta e rimozione dei preferiti da qualunque sezione  
+- Lista preferiti sempre consultabile  
 
-Ordinamento alfabetico
+---
 
-✔️ Dettaglio Smartphone
+## 🚀 Avvio del backend
 
-Scheda dedicata con tutte le specifiche dello smartphone
+**Apri un terminale nella root del progetto:**
 
-✔️ Comparatore
+- cd backend
+- npm install 
+- npm start 
+- Il server sarà in ascolto su `http://localhost:3001`.
 
-Possibilità di scegliere due smartphone e confrontarli affiancati
 
-✔️ Preferiti
+## 💻 Avvio del frontend
 
-Aggiunta e rimozione dei preferiti da qualunque sezione
-
-Lista preferiti sempre consultabile
+Apri un **secondo terminale** nella root del progetto:
+- cd progetto-finale-spec-frontend-front
+- npm install 
+- npm run dev
+- Apri il browser all’indirizzo indicato in console: http://localhost:5173
