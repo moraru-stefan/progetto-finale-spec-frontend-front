@@ -39,8 +39,8 @@ function App() {
   });
 
   useEffect(() => {
-  localStorage.setItem("compareIds", JSON.stringify(compareIds));
-}, [compareIds]);
+    localStorage.setItem("compareIds", JSON.stringify(compareIds));
+  }, [compareIds]);
 
   // Funzione per aggiungere o rimuovere uno smartphone dal confronto
   function toggleCompare(id) {
@@ -69,11 +69,16 @@ function App() {
       .catch((err) => console.error("Errore nel fetch:", err));
   }, []);
 
+  // Funzione per svuotare tutti i preferiti
+  function clearFavorites() {
+    setFavorites([]);
+  }
+
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-         <Route index element={<HomePage />} /> 
+          <Route index element={<HomePage />} />
           <Route
             path="/smartphones"
             element={
@@ -113,10 +118,10 @@ function App() {
                 smartphones={smartphones}
                 favorites={favorites}
                 toggleFavorite={toggleFavorite}
+                clearFavorites={clearFavorites}
               />
             }
           />
-
         </Route>
       </Routes>
     </BrowserRouter>
