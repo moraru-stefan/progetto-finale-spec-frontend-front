@@ -7,6 +7,8 @@ import ComparePage from "./pages/ComparePage";
 import FavoritesPage from "./pages/FavoritesPage";
 import HomePage from "./pages/HomePage";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function App() {
   // Stato che contiene la lista degli smartphone
   const [smartphones, setSmartphones] = useState([]);
@@ -60,7 +62,7 @@ function App() {
 
   useEffect(() => {
     // Recupero dei dati dal backend all'avvio dell'app
-    fetch("http://localhost:3001/smartphones")
+    fetch(`${API_URL}/smartphones`)
       // Converto la risposta in JSON
       .then((res) => res.json())
       // Salvo i dati nello stato

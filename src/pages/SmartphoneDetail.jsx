@@ -2,6 +2,9 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 const SmartphoneDetail = ({
   favorites,
   toggleFavorite,
@@ -19,7 +22,7 @@ const SmartphoneDetail = ({
   useEffect(() => {
     if (!phoneId) return;
 
-    fetch(`http://localhost:3001/smartphones/${phoneId}`)
+    fetch(`${API_URL}/smartphones/${phoneId}`)
       .then((res) => res.json())
       .then((data) => setPhone(data.smartphone))
       .catch((err) => console.error(err));

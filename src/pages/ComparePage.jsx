@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 const ComparePage = ({ compareIds }) => {
   const [phones, setPhones] = useState([]);
 
@@ -9,7 +12,7 @@ const ComparePage = ({ compareIds }) => {
 
     Promise.all(
       compareIds.map((id) =>
-        fetch(`http://localhost:3001/smartphones/${id}`)
+        fetch(`${API_URL}/smartphones/${id}`)
           .then((res) => res.json())
           .then((data) => data.smartphone)
       )

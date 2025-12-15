@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Footer from "../components/Footer";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 const SmartphoneList = ({
   smartphones,
   favorites,
@@ -24,7 +27,7 @@ const SmartphoneList = ({
 
     Promise.all(
       smartphones.map((s) =>
-        fetch(`http://localhost:3001/smartphones/${s.id}`)
+        fetch(`${API_URL}/smartphones/${s.id}`)
           .then((res) => res.json())
           .then((data) => data.smartphone)
       )
