@@ -77,7 +77,7 @@ const SmartphoneList = ({
 
   return (
     <div>
-      <h1 className="mb-3">Lista Smartphone</h1>
+      <h1 className="mb-3">Lista Telefoni</h1>
 
       <div className="row g-2 mb-3">
         {/* Input per ricerca per titolo */}

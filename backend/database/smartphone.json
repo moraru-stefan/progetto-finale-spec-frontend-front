@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "iPhone 15",
-    "category": "top",
+    "category": "Top di gamma",
     "brand": "Apple",
     "price": 1200,
     "os": "iOS",
@@ -14,7 +14,7 @@
   {
     "id": 2,
     "title": "Samsung Galaxy S24",
-    "category": "top",
+    "category": "Top di gamma",
     "brand": "Samsung",
     "price": 1100,
     "os": "Android",
@@ -26,7 +26,7 @@
   {
     "id": 3,
     "title": "Xiaomi Redmi Note 13",
-    "category": "midrange",
+    "category": "Fascia media",
     "brand": "Xiaomi",
     "price": 300,
     "os": "Android",
@@ -38,7 +38,7 @@
   {
     "id": 4,
     "title": "Google Pixel 8",
-    "category": "top",
+    "category": "Top di gamma",
     "brand": "Google",
     "price": 900,
     "os": "Android",
@@ -50,7 +50,7 @@
   {
     "id": 5,
     "title": "OnePlus 12",
-    "category": "top",
+    "category": "Top di gamma",
     "brand": "OnePlus",
     "price": 850,
     "os": "Android",
@@ -62,7 +62,7 @@
   {
     "id": 6,
     "title": "Samsung Galaxy A54",
-    "category": "midrange",
+    "category": "Fascia media",
     "brand": "Samsung",
     "price": 400,
     "os": "Android",
@@ -74,7 +74,7 @@
   {
     "id": 7,
     "title": "Xiaomi Redmi 12C",
-    "category": "budget",
+    "category": "Economico",
     "brand": "Xiaomi",
     "price": 150,
     "os": "Android",
@@ -86,7 +86,7 @@
   {
     "id": 8,
     "title": "Motorola Moto G73",
-    "category": "budget",
+    "category": "Economico",
     "brand": "Motorola",
     "price": 200,
     "os": "Android",
@@ -96,33 +96,33 @@
     "imageUrl": "https://motorolain.vtexassets.com/arquivos/ids/157978/moto-g73-devon-5g-pdp-ecom-lucent-white-pxk9hllf.png?v=638132970754230000"
   },
   {
-  "id": 9,
-  "title": "Sony Xperia 5 V",
-  "category": "top",
-  "brand": "Sony",
-  "price": 999,
-  "os": "Android",
-  "screenSize": "6.1",
-  "ram": "8 GB",
-  "storage": "128 GB",
-  "imageUrl": "https://sony.scene7.com/is/image/sonyglobalsolutions/1640-primary_image_1200-2?$categorypdpnav$&fmt=png-alpha"
-},
-{
-  "id": 10,
-  "title": "Realme C55",
-  "category": "budget",
-  "brand": "Realme",
-  "price": 180,
-  "os": "Android",
-  "screenSize": "6.7",
-  "ram": "6 GB",
-  "storage": "128 GB",
-  "imageUrl": "https://tienda.movistar.com.ec/media/catalog/product/cache/d730591e49ae7d4a1adb9133c8cae915/r/e/realme-c55-negro-doble.png"
-},
-{
+    "id": 9,
+    "title": "Sony Xperia 5 V",
+    "category": "Top di gamma",
+    "brand": "Sony",
+    "price": 999,
+    "os": "Android",
+    "screenSize": "6.1",
+    "ram": "8 GB",
+    "storage": "128 GB",
+    "imageUrl": "https://sony.scene7.com/is/image/sonyglobalsolutions/1640-primary_image_1200-2?$categorypdpnav$&fmt=png-alpha"
+  },
+  {
+    "id": 10,
+    "title": "Realme C55",
+    "category": "Economico",
+    "brand": "Realme",
+    "price": 180,
+    "os": "Android",
+    "screenSize": "6.7",
+    "ram": "6 GB",
+    "storage": "128 GB",
+    "imageUrl": "https://tienda.movistar.com.ec/media/catalog/product/cache/d730591e49ae7d4a1adb9133c8cae915/r/e/realme-c55-negro-doble.png"
+  },
+  {
     "id": 11,
     "title": "iPhone 14",
-    "category": "top",
+    "category": "Top di gamma",
     "brand": "Apple",
     "price": 950,
     "os": "iOS",
@@ -134,7 +134,7 @@
   {
     "id": 12,
     "title": "iPhone SE 2022",
-    "category": "budget",
+    "category": "Economico",
     "brand": "Apple",
     "price": 450,
     "os": "iOS",
@@ -146,7 +146,7 @@
   {
     "id": 13,
     "title": "Samsung Galaxy Z Flip 5",
-    "category": "top",
+    "category": "Top di gamma",
     "brand": "Samsung",
     "price": 1200,
     "os": "Android",
@@ -158,7 +158,7 @@
   {
     "id": 14,
     "title": "Samsung Galaxy S23 FE",
-    "category": "midrange",
+    "category": "Fascia media",
     "brand": "Samsung",
     "price": 650,
     "os": "Android",
@@ -170,7 +170,7 @@
   {
     "id": 15,
     "title": "Xiaomi 13T",
-    "category": "midrange",
+    "category": "Fascia media",
     "brand": "Xiaomi",
     "price": 550,
     "os": "Android",
@@ -182,7 +182,7 @@
   {
     "id": 16,
     "title": "Xiaomi Poco X6 Pro",
-    "category": "midrange",
+    "category": "Fascia media",
     "brand": "Xiaomi",
     "price": 350,
     "os": "Android",
@@ -194,7 +194,7 @@
   {
     "id": 17,
     "title": "Google Pixel 7a",
-    "category": "midrange",
+    "category": "Fascia media",
     "brand": "Google",
     "price": 500,
     "os": "Android",
@@ -206,7 +206,7 @@
   {
     "id": 18,
     "title": "Google Pixel Fold",
-    "category": "top",
+    "category": "Top di gamma",
     "brand": "Google",
     "price": 1800,
     "os": "Android",
@@ -218,7 +218,7 @@
   {
     "id": 19,
     "title": "OnePlus Nord 3",
-    "category": "midrange",
+    "category": "Fascia media",
     "brand": "OnePlus",
     "price": 500,
     "os": "Android",
@@ -230,7 +230,7 @@
   {
     "id": 20,
     "title": "OnePlus Nord CE 3 Lite",
-    "category": "budget",
+    "category": "Economico",
     "brand": "OnePlus",
     "price": 300,
     "os": "Android",
@@ -242,7 +242,7 @@
   {
     "id": 21,
     "title": "Motorola Edge 40",
-    "category": "midrange",
+    "category": "Fascia media",
     "brand": "Motorola",
     "price": 450,
     "os": "Android",
@@ -254,7 +254,7 @@
   {
     "id": 22,
     "title": "Motorola Moto G34",
-    "category": "budget",
+    "category": "Economico",
     "brand": "Motorola",
     "price": 180,
     "os": "Android",
@@ -266,7 +266,7 @@
   {
     "id": 23,
     "title": "Oppo Find X5",
-    "category": "top",
+    "category": "Top di gamma",
     "brand": "Oppo",
     "price": 900,
     "os": "Android",
@@ -278,7 +278,7 @@
   {
     "id": 24,
     "title": "Oppo Reno 10",
-    "category": "midrange",
+    "category": "Fascia media",
     "brand": "Oppo",
     "price": 500,
     "os": "Android",
@@ -290,7 +290,7 @@
   {
     "id": 25,
     "title": "Realme GT Neo 5",
-    "category": "midrange",
+    "category": "Fascia media",
     "brand": "Realme",
     "price": 550,
     "os": "Android",
@@ -302,7 +302,7 @@
   {
     "id": 26,
     "title": "Realme Narzo 60",
-    "category": "budget",
+    "category": "Economico",
     "brand": "Realme",
     "price": 200,
     "os": "Android",
@@ -314,7 +314,7 @@
   {
     "id": 27,
     "title": "Sony Xperia 1 V",
-    "category": "top",
+    "category": "Top di gamma",
     "brand": "Sony",
     "price": 1300,
     "os": "Android",
@@ -326,7 +326,7 @@
   {
     "id": 28,
     "title": "Sony Xperia 10 V",
-    "category": "midrange",
+    "category": "Fascia media",
     "brand": "Sony",
     "price": 430,
     "os": "Android",
@@ -338,7 +338,7 @@
   {
     "id": 29,
     "title": "Nokia G42",
-    "category": "budget",
+    "category": "Economico",
     "brand": "Nokia",
     "price": 250,
     "os": "Android",
@@ -350,7 +350,7 @@
   {
     "id": 30,
     "title": "Asus Zenfone 10",
-    "category": "top",
+    "category": "Top di gamma",
     "brand": "Asus",
     "price": 800,
     "os": "Android",

@@ -11,7 +11,7 @@ const Layout = () => {
           </NavLink>
            <NavLink to="/smartphones" className="nav-link">
             <i className="fa-solid fa-mobile-screen nav-icon"></i>
-            <span>Smartphones</span>
+            <span>Telefoni</span>
           </NavLink>
           <NavLink to="/compare" className="nav-link">
             <i className="fa-solid fa-balance-scale nav-icon"></i>
