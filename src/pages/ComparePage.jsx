@@ -41,7 +41,7 @@ return (
 
       <div className="row g-3 align-items-start">
         {[first, second].map((phone) => (
-          <div key={phone.id} className="col-12 col-md-6">
+          <div key={phone.id} className="col-6 col-md-6">
             <div className="card h-100 shadow-sm">
               <div className="text-center pt-3">
                 <img
