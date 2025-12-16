@@ -1,6 +1,7 @@
 body {
   background: #f5f7fb;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
 }
 
 .container {
@@ -41,26 +42,33 @@ body {
     max-height: 220px;
   }
 
-    .app-navbar .nav-link {
+  .app-navbar .nav-link {
     flex-direction: column;
     gap: 0.25rem;
   }
-  
+
   .app-navbar .nav-link .nav-icon {
     font-size: 1.2rem;
   }
-  
+
   .app-navbar .nav-link span {
-    display: none; 
+    display: none;
+  }
+
+  .card-compare-container .card {
+    height: 480px;
+  }
+  .phone-detail-img {
+    width: 120px;
+    max-width: 120px;
   }
 }
 
 @media (max-width: 770px) {
-   .app-navbar .nav-link span {
-    display: none; 
+  .app-navbar .nav-link span {
+    display: none;
   }
 }
-
 
 .phone-thumb {
   max-width: 120px;
@@ -80,13 +88,11 @@ body {
   border-bottom: 2px solid #007bff;
 }
 
-
 .btn-favorites {
   position: absolute;
   top: 5px;
   right: 5px;
 }
-
 
 .scroll-top-btn {
   position: fixed;
@@ -97,6 +103,6 @@ body {
   color: #007bff;
 }
 
-
-
-
+  .card-compare-container .card img{
+    width: 250px;
+  }

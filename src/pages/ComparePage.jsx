@@ -39,10 +39,10 @@ return (
     <div className="col-12 col-lg-10">
       <h1 className="mb-3 h4 text-center">Confronto Smartphone</h1>
 
-      <div className="row g-3 align-items-start">
+      <div className="card-compare-container row g-3 align-items-start">
         {[first, second].map((phone) => (
           <div key={phone.id} className="col-6 col-md-6">
-            <div className="card h-100 shadow-sm">
+            <div className="card shadow-sm">
               <div className="text-center pt-3">
                 <img
                   src={phone.imageUrl}
