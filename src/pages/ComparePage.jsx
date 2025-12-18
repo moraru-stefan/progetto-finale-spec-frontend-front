@@ -4,20 +4,30 @@ import Footer from "../components/Footer";
 const API_URL = import.meta.env.VITE_API_URL;
 
 
-const ComparePage = ({ compareIds }) => {
+const ComparePage = ({ compareIds, clearCompare }) => {
   const [phones, setPhones] = useState([]);
 
-  useEffect(() => {
-    if (compareIds.length < 2) return;
+useEffect(() => {
+  if (compareIds.length < 2) return;
 
-    Promise.all(
-      compareIds.map((id) =>
-        fetch(`${API_URL}/smartphones/${id}`)
-          .then((res) => res.json())
-          .then((data) => data.smartphone)
-      )
-    ).then(setPhones);
-  }, [compareIds]);
+  async function loadPhones() {
+    try {
+      const loaded = [];
+
+      for (const id of compareIds) {
+        const res = await fetch(`${API_URL}/smartphones/${id}`);
+        const data = await res.json();
+        loaded.push(data.smartphone);
+      }
+
+      setPhones(loaded);
+    } catch (err) {
+      console.error("Errore nel caricamento degli smartphone da confrontare:", err);
+    }
+  }
+
+  loadPhones();
+}, [compareIds]);
 
  if (phones.length < 2) {
     return (

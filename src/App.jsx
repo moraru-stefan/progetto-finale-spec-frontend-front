@@ -39,16 +39,16 @@ function App() {
     const saved = localStorage.getItem("compareIds");
     return saved ? JSON.parse(saved) : [];
   });
-  
+
   useEffect(() => {
     localStorage.setItem("compareIds", JSON.stringify(compareIds));
   }, [compareIds]);
-  
+
   // Funzione per svuotare tutti i preferiti
   function clearFavorites() {
     setFavorites([]);
   }
-  
+
   // Funzione per aggiungere o rimuovere uno smartphone dal confronto
   function toggleCompare(id) {
     setCompareIds((prev) => {
@@ -76,7 +76,7 @@ function App() {
       .catch((err) => console.error("Errore nel fetch:", err));
   }, []);
 
-
+  
   return (
     <BrowserRouter>
       <Routes>

@@ -4,7 +4,6 @@ import Footer from "../components/Footer";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-
 const SmartphoneList = ({
   smartphones,
   favorites,
@@ -23,17 +22,27 @@ const SmartphoneList = ({
   const [fullPhones, setFullPhones] = useState([]);
 
   useEffect(() => {
-    if (!smartphones.length) return;
-
-    Promise.all(
-      smartphones.map((s) =>
-        fetch(`${API_URL}/smartphones/${s.id}`)
-          .then((res) => res.json())
-          .then((data) => data.smartphone)
-      )
-    )
-      .then(setFullPhones)
-      .catch((err) => console.error(err));
+    // funzione asincrona che carica i dati completi
+    async function loadFullPhones() {
+      try {
+        // array temporaneo dove salvo gli smartphone completi
+        const phones = [];
+        // per ogni smartphone faccio una chiamata al backend
+        for (const s of smartphones) {
+          const res = await fetch(`${API_URL}/smartphones/${s.id}`);
+          // converto la risposta in JSON
+          const data = await res.json();
+          // aggiungo lo smartphone completo all'array
+          phones.push(data.smartphone);
+        }
+        // salvo l'array completo nello stato
+        setFullPhones(phones);
+      } catch (err) {
+        console.error("Errore nel caricamento degli smartphone completi:", err);
+      }
+    }
+    // richiamo la funzione asincrona
+    loadFullPhones();
   }, [smartphones]);
 
   // Estraggo tutte le categorie dagli smartphone e rimuovo i duplicati
@@ -122,9 +131,7 @@ const SmartphoneList = ({
 
       {/* Lista filtrata e ordinata */}
       {filteredSmartphones.length === 0 ? (
-        <p className="text-muted">
-          Nessun risultato trovato per "{search}"
-        </p>
+        <p className="text-muted">Nessun risultato trovato per "{search}"</p>
       ) : (
         <div className="row g-3">
           {filteredSmartphones.map((phone) => (
@@ -178,7 +185,7 @@ const SmartphoneList = ({
           ))}
         </div>
       )}
-      <Footer/>
+      <Footer />
     </div>
   );
 };
