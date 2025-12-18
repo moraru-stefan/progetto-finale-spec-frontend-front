@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 const API_URL = import.meta.env.VITE_API_URL;
 
 
-const ComparePage = ({ compareIds, clearCompare }) => {
+const ComparePage = ({ compareIds }) => {
   const [phones, setPhones] = useState([]);
 
 useEffect(() => {
