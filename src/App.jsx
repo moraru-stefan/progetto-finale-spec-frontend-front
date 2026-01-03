@@ -33,6 +33,11 @@ function App() {
       prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id]
     );
   }
+  
+  // Funzione per svuotare tutti i preferiti
+  function clearFavorites() {
+    setFavorites([]);
+  }
 
   // Stato che contiene gli ID degli smartphone selezionati per il confronto
   const [compareIds, setCompareIds] = useState(() => {
@@ -44,17 +49,13 @@ function App() {
     localStorage.setItem("compareIds", JSON.stringify(compareIds));
   }, [compareIds]);
 
-  // Funzione per svuotare tutti i preferiti
-  function clearFavorites() {
-    setFavorites([]);
-  }
 
   // Funzione per aggiungere o rimuovere uno smartphone dal confronto
   function toggleCompare(id) {
     setCompareIds((prev) => {
       if (prev.includes(id)) {
-        // Se l'id è già presente, lo rimuovo
-        return prev.filter((cid) => cid !== id);
+        // Se l'id è già nel confronto, lo rimuovo
+      return prev.filter((idConfronto) => idConfronto !== id);
       }
       if (prev.length >= 2) {
         // Se ci sono già 2 smartphone, sostituisco il primo con il nuovo
