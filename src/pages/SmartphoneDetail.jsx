@@ -33,7 +33,7 @@ const SmartphoneDetail = ({
     return (
       <div>
         <p>Smartphone non trovato.</p>
-        <Link to="/">Torna alla lista</Link>
+        <Link to="/smartphones">Torna alla lista</Link>
       </div>
     );
   }
