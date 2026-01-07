@@ -13,6 +13,7 @@ const SmartphoneDetail = ({
 }) => {
   // prendo l'id dalla URL /smartphones/:id
   const { id } = useParams();
+  // converto l'id in numero
   const phoneId = Number(id);
 
   // stato locale per il singolo smartphone
@@ -20,6 +21,7 @@ const SmartphoneDetail = ({
 
   // chiamata API per /smartphones/:id
   useEffect(() => {
+    // Se non c’è un id valido nella URL, non faccio la chiamata al backend
     if (!phoneId) return;
 
     fetch(`${API_URL}/smartphones/${phoneId}`)

@@ -40,8 +40,7 @@ useEffect(() => {
   );
 }
 
-
-  // Estraggo i due smartphone selezionati
+ // Destrutturo l'array phones nei due smartphone selezionati per poterli usare singolarmente nel confronto
   const [first, second] = phones;
 
 return (

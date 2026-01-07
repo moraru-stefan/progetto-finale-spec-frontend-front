@@ -43,40 +43,52 @@ const SmartphoneList = ({
     }
     // richiamo la funzione asincrona
     loadFullPhones();
+    // Esegue l'effetto ogni volta che cambia la lista degli smartphone passata come prop.
   }, [smartphones]);
+
 
   // Estraggo tutte le categorie dagli smartphone e rimuovo i duplicati
   const categories = [];
+  // Ciclo tutti gli smartphone ricevuti come prop
   for (const phone of smartphones) {
+    // Se la categoria di questo smartphone NON è già presente nell'array (per evitare duplicati)
     if (!categories.includes(phone.category)) {
+       // Aggiungo la categoria all'array
       categories.push(phone.category);
     }
   }
 
   // Funzione immediatamente invocata per filtrare e ordinare gli smartphone
   const filteredSmartphones = (() => {
-    // Copio dell'array originale, così non si modifica direttamente la prop
+    // Copia dell'array originale, così non si modifica direttamente lo stato
     let list = [...fullPhones];
 
-    // Filtro per ricerca se search non è vuoto
+     // Se l'utente ha scritto qualcosa nel campo di ricerca
     if (search) {
+      // Converto la stringa di ricerca in minuscolo per confronto case-insensitive
       const lower = search.toLowerCase();
-      // Filtra gli smartphone il cui titolo contiene la stringa di ricerca
+       // Filtro la lista mantenendo solo gli smartphone il cui titolo contiene la stringa di ricerca
       list = list.filter((s) => s.title.toLowerCase().includes(lower));
     }
 
-    // Filtro per categoria se categoryFilter non è vuoto
+    // Se l'utente ha selezionato una categoria
     if (categoryFilter) {
+      // Filtro la lista mantenendo solo gli smartphone della categoria selezionata
       list = list.filter((s) => s.category === categoryFilter);
     }
 
     // Ordino l'array in base al titolo
     list.sort((a, b) => {
-      const titleA = a.title?.toString().toLowerCase();
-      const titleB = b.title?.toString().toLowerCase();
+       // Prendo il titolo del primo elemento, lo converto in stringa e in minuscolo
+      const titleA = a.title.toString().toLowerCase();
+       // Prendo il titolo del secondo elemento, lo converto in stringa e in minuscolo
+      const titleB = b.title.toString().toLowerCase();
 
+  // Se A viene prima di B nell'alfabeto, A va prima o dopo in base al tipo di ordinamento
       if (titleA < titleB) return sortDirection === "asc" ? -1 : 1;
+ // Se A viene dopo B nell'alfabeto, Inverto l'ordine se l'ordinamento è decrescente
       if (titleA > titleB) return sortDirection === "asc" ? 1 : -1;
+       // Se i due titoli sono uguali, ritorno 0
       return 0;
     });
 
@@ -140,6 +152,7 @@ const SmartphoneList = ({
                 <div className="card-body d-flex flex-column position-relative">
                   <button
                     className="btn-favorites btn btn-sm btn-outline-primary"
+                    // All' onClick richiamo funzione toggleFavorite
                     onClick={() => toggleFavorite(phone.id)}
                   >
                     {favorites.includes(phone.id) ? (

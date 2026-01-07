@@ -13,6 +13,7 @@ function App() {
   // Stato che contiene la lista degli smartphone
   const [smartphones, setSmartphones] = useState([]);
 
+  
   // Stato che contiene gli ID degli smartphone preferiti
   const [favorites, setFavorites] = useState(() => {
     // Recupero dal localStorage il valore salvato con chiave "favorites"
@@ -29,7 +30,7 @@ function App() {
   // Funzione per aggiungere o rimuovere uno smartphone dai preferiti
   function toggleFavorite(id) {
     setFavorites((prev) =>
-      // Se l'id è già nei preferiti lo rimuove, altrimenti lo aggiunge
+      // Se l'id è già nei preferiti lo rimuovo, altrimenti lo aggiungo
       prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id]
     );
   }
@@ -38,6 +39,7 @@ function App() {
   function clearFavorites() {
     setFavorites([]);
   }
+
 
   // Stato che contiene gli ID degli smartphone selezionati per il confronto
   const [compareIds, setCompareIds] = useState(() => {

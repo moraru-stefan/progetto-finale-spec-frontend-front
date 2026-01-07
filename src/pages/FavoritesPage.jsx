@@ -6,8 +6,10 @@ const FavoritesPage = ({
   toggleFavorite,
   clearFavorites,
 }) => {
+   // Creo l'array degli smartphone preferiti filtrando per ID
   const favoritePhones = smartphones.filter((s) => favorites.includes(s.id));
 
+    // Se non ci sono preferiti, mostro un messaggio
   if (favoritePhones.length === 0) {
     return (
       <div>
@@ -20,6 +22,7 @@ const FavoritesPage = ({
     );
   }
 
+    // Se ci sono preferiti, mostro la lista
   return (
     <div>
       <div className="d-flex justify-content-between">
