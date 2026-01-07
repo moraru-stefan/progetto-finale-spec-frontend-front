@@ -29,8 +29,9 @@ function App() {
 
   // Funzione per aggiungere o rimuovere uno smartphone dai preferiti
   function toggleFavorite(id) {
+    //Prendo l'id dello smartphone cliccato
     setFavorites((prev) =>
-      // Se l'id è già nei preferiti lo rimuovo, altrimenti lo aggiungo
+      //Controllo, se l'id è già nei preferiti lo rimuovo, altrimenti lo aggiungo
       prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id]
     );
   }
@@ -67,6 +68,7 @@ function App() {
       return [...prev, id];
     });
   }
+  
 
   useEffect(() => {
     // Recupero dei dati dal backend all'avvio dell'app

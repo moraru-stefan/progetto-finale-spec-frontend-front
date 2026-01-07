@@ -6,7 +6,8 @@ const FavoritesPage = ({
   toggleFavorite,
   clearFavorites,
 }) => {
-   // Creo l'array degli smartphone preferiti filtrando per ID
+   // Creo l'array degli smartphone che l’utente ha aggiunto ai preferiti filtrando per ID
+   // Filtro la lista completa degli smartphone per ottenere solo quelli presenti nei preferiti
   const favoritePhones = smartphones.filter((s) => favorites.includes(s.id));
 
     // Se non ci sono preferiti, mostro un messaggio
