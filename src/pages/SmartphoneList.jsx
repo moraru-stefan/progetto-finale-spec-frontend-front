@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Footer from "../components/Footer";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -46,28 +46,27 @@ const SmartphoneList = ({
     // Esegue l'effetto ogni volta che cambia la lista degli smartphone passata come prop.
   }, [smartphones]);
 
-
   // Estraggo tutte le categorie dagli smartphone e rimuovo i duplicati
   const categories = [];
   // Ciclo tutti gli smartphone ricevuti come prop
   for (const phone of smartphones) {
     // Se la categoria di questo smartphone NON è già presente nell'array (per evitare duplicati)
     if (!categories.includes(phone.category)) {
-       // Aggiungo la categoria all'array
+      // Aggiungo la categoria all'array
       categories.push(phone.category);
     }
   }
 
-  // Funzione immediatamente invocata per filtrare e ordinare gli smartphone
-  const filteredSmartphones = (() => {
-    // Copia dell'array originale, così non si modifica direttamente lo stato
+  // Funzione useMemo memorizza il risultato del calcolo e lo ricalcola solo quando cambiano le dipendenze specificate
+  const filteredSmartphones = useMemo(() => {
+    // Copia dell'array originale, così non si modifica direttamente lo stato originale
     let list = [...fullPhones];
 
-     // Se l'utente ha scritto qualcosa nel campo di ricerca
+    // Se l'utente ha scritto qualcosa nel campo di ricerca
     if (search) {
       // Converto la stringa di ricerca in minuscolo per confronto case-insensitive
       const lower = search.toLowerCase();
-       // Filtro la lista mantenendo solo gli smartphone il cui titolo contiene la stringa di ricerca
+      // Filtro la lista mantenendo solo gli smartphone il cui titolo contiene la stringa di ricerca
       list = list.filter((s) => s.title.toLowerCase().includes(lower));
     }
 
@@ -79,22 +78,22 @@ const SmartphoneList = ({
 
     // Ordino l'array in base al titolo
     list.sort((a, b) => {
-       // Prendo il titolo del primo elemento, lo converto in stringa e in minuscolo
+      // Prendo il titolo del primo elemento, lo converto in stringa e in minuscolo
       const titleA = a.title.toString().toLowerCase();
-       // Prendo il titolo del secondo elemento, lo converto in stringa e in minuscolo
+      // Prendo il titolo del secondo elemento, lo converto in stringa e in minuscolo
       const titleB = b.title.toString().toLowerCase();
 
-  // Se A viene prima di B nell'alfabeto, A va prima o dopo in base al tipo di ordinamento
+      // Se A viene prima di B nell'alfabeto, A va prima o dopo in base al tipo di ordinamento
       if (titleA < titleB) return sortDirection === "asc" ? -1 : 1;
- // Se A viene dopo B nell'alfabeto, Inverto l'ordine se l'ordinamento è decrescente
+      // Se A viene dopo B nell'alfabeto, Inverto l'ordine se l'ordinamento è decrescente
       if (titleA > titleB) return sortDirection === "asc" ? 1 : -1;
-       // Se i due titoli sono uguali, ritorno 0
+      // Se i due titoli sono uguali, ritorno 0
       return 0;
     });
 
-    // Restituisce l'array filtrato e ordinato
+    // Ritorno l'array filtrato e ordinato
     return list;
-  })();
+  }, [fullPhones, search, categoryFilter, sortDirection]);
 
   return (
     <div>
