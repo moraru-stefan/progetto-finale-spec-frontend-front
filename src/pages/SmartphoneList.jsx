@@ -21,6 +21,8 @@ const SmartphoneList = ({
   // Smartphone completi (con imageUrl, brand, ecc.)
   const [fullPhones, setFullPhones] = useState([]);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     // funzione asincrona che carica i dati completi
     async function loadFullPhones() {
@@ -39,7 +41,9 @@ const SmartphoneList = ({
         setFullPhones(phones);
       } catch (err) {
         console.error("Errore nel caricamento degli smartphone completi:", err);
-      }
+      } finally {
+      setLoading(false); 
+    }
     }
     // richiamo la funzione asincrona
     loadFullPhones();
@@ -64,8 +68,8 @@ const SmartphoneList = ({
 
     // Se l'utente ha scritto qualcosa nel campo di ricerca
     if (search) {
-      // Converto la stringa di ricerca in minuscolo per confronto case-insensitive
-      const lower = search.toLowerCase();
+      // Converto la stringa di ricerca in minuscolo 
+      const lower = search.toLowerCase(); 
       // Filtro la lista mantenendo solo gli smartphone il cui titolo contiene la stringa di ricerca
       list = list.filter((s) => s.title.toLowerCase().includes(lower));
     }
@@ -141,62 +145,71 @@ const SmartphoneList = ({
       </div>
 
       {/* Lista filtrata e ordinata */}
-      {filteredSmartphones.length === 0 ? (
-        <p className="text-muted">Nessun risultato trovato per "{search}"</p>
-      ) : (
-        <div className="row g-3">
-          {filteredSmartphones.map((phone) => (
-            <div key={phone.id} className="col-6 col-md-4 col-lg-2">
-              <div className="card shadow-sm h-100">
-                <div className="card-body d-flex flex-column position-relative">
-                  <button
-                    className="btn-favorites btn btn-sm btn-outline-primary"
-                    // All' onClick richiamo funzione toggleFavorite
-                    onClick={() => toggleFavorite(phone.id)}
-                  >
-                    {favorites.includes(phone.id) ? (
-                      <i className="fa-solid fa-heart"></i>
-                    ) : (
-                      <i className="fa-regular fa-heart"></i>
-                    )}
-                  </button>
+    {loading ? (
+    <div className="text-center my-5">
+      <div className="spinner-border text-primary" role="status">
+        <span className="visually-hidden">Caricamento...</span>
+      </div>
+      <p className="mt-2">
+        Caricamento dati… al primo accesso potrebbe richiedere qualche istante.
+      </p>
+    </div>
+  ) : filteredSmartphones.length === 0 ? (
+    <p className="text-muted">Nessun risultato trovato per "{search}"</p>
+  ) : (
+    <div className="row g-3">
+      {filteredSmartphones.map((phone) => (
+        <div key={phone.id} className="col-6 col-md-4 col-lg-2">
+          <div className="card shadow-sm h-100">
+            <div className="card-body d-flex flex-column position-relative">
+              <button
+                className="btn-favorites btn btn-sm btn-outline-primary"
+                onClick={() => toggleFavorite(phone.id)}
+              >
+                {favorites.includes(phone.id) ? (
+                  <i className="fa-solid fa-heart"></i>
+                ) : (
+                  <i className="fa-regular fa-heart"></i>
+                )}
+              </button>
 
-                  <div className="text-center">
-                    <img
-                      src={phone.imageUrl}
-                      alt={phone.title}
-                      className="phone-thumb"
-                    />
-                  </div>
-                  <div className="mt-2 text-center">
-                    <Link
-                      className="btn btn-primary"
-                      to={`/smartphones/${phone.id}`}
-                    >
-                      Dettagli
-                    </Link>
-                  </div>
-                  <h2 className="h6 mt-2 text-center">{phone.title}</h2>
-                  <p className="text-center">{phone.price} €</p>
-                  <p className="text-muted mb-2 text-uppercase small">
-                    {phone.category}
-                  </p>
-                  <div className="mt-auto d-flex flex-wrap gap-2">
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      onClick={() => toggleCompare(phone.id)}
-                    >
-                      {compareIds.includes(phone.id)
-                        ? "Rimuovi confronto"
-                        : "Confronta"}
-                    </button>
-                  </div>
-                </div>
+              <div className="text-center">
+                <img
+                  src={phone.imageUrl}
+                  alt={phone.title}
+                  className="phone-thumb"
+                />
+              </div>
+              <div className="mt-2 text-center">
+                <Link
+                  className="btn btn-primary"
+                  to={`/smartphones/${phone.id}`}
+                >
+                  Dettagli
+                </Link>
+              </div>
+              <h2 className="h6 mt-2 text-center">{phone.title}</h2>
+              <p className="text-center">{phone.price} €</p>
+              <p className="text-muted mb-2 text-uppercase small">
+                {phone.category}
+              </p>
+              <div className="mt-auto d-flex flex-wrap gap-2">
+                <button
+                  className="btn btn-sm btn-outline-secondary"
+                  onClick={() => toggleCompare(phone.id)}
+                >
+                  {compareIds.includes(phone.id)
+                    ? "Rimuovi confronto"
+                    : "Confronta"}
+                </button>
               </div>
             </div>
-          ))}
+          </div>
         </div>
-      )}
+      ))}
+    </div>
+  )}
+
       <Footer />
     </div>
   );
