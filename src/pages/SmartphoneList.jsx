@@ -21,11 +21,13 @@ const SmartphoneList = ({
   // Smartphone completi (con imageUrl, brand, ecc.)
   const [fullPhones, setFullPhones] = useState([]);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(smartphones.length === 0);
 
   useEffect(() => {
+    if (!smartphones || smartphones.length === 0) return;
     // funzione asincrona che carica i dati completi
     async function loadFullPhones() {
+      setLoading(true);
       try {
         // array temporaneo dove salvo gli smartphone completi
         const phones = [];
@@ -37,6 +39,9 @@ const SmartphoneList = ({
           // aggiungo lo smartphone completo all'array
           phones.push(data.smartphone);
         }
+
+          await new Promise((resolve) => setTimeout(resolve, 500));
+
         // salvo l'array completo nello stato
         setFullPhones(phones);
       } catch (err) {
@@ -46,7 +51,7 @@ const SmartphoneList = ({
     }
     }
     // richiamo la funzione asincrona
-    loadFullPhones();
+     loadFullPhones();
     // Esegue l'effetto ogni volta che cambia la lista degli smartphone passata come prop.
   }, [smartphones]);
 
