@@ -137,7 +137,6 @@ const SmartphoneList = ({
           <div className="col-12 col-lg-6">
             <label className="shop-filter-label">Cerca modello</label>
             <div className="shop-input-wrap">
-              <i className="fa-solid fa-magnifying-glass"></i>
               <input
                 type="text"
                 className="form-control shop-input"
@@ -205,7 +204,7 @@ const SmartphoneList = ({
                 <article className="shop-card h-100">
                   <button
                     className={`shop-favorite-btn ${isFavorite ? "active" : ""}`}
-                    onClick={() => toggleFavorite(phone.id)}
+                    onClick={() => toggleFavorite(phone.id, phone.title)}
                     aria-label={
                       isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"
                     }
@@ -233,7 +232,7 @@ const SmartphoneList = ({
                       </Link>
                       <button
                         className={`btn btn-sm shop-compare-btn ${isInCompare ? "active" : ""}`}
-                        onClick={() => toggleCompare(phone.id)}
+                        onClick={() => toggleCompare(phone.id, phone.title)}
                       >
                         {isInCompare ? "Rimuovi confronto" : "Aggiungi al confronto"}
                       </button>

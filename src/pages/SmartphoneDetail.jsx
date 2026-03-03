@@ -60,7 +60,7 @@ const SmartphoneDetail = ({
             <div className="d-flex flex-wrap gap-2 mb-3">
               <button
                 className="btn btn-sm btn-outline-primary"
-                onClick={() => toggleFavorite(phone.id)}
+                onClick={() => toggleFavorite(phone.id, phone.title)}
               >
                 {favorites.includes(phone.id) ? (
                   <i className="fa-solid fa-heart"></i>
@@ -71,7 +71,7 @@ const SmartphoneDetail = ({
 
               <button
                 className="btn btn-sm btn-outline-secondary"
-                onClick={() => toggleCompare(phone.id)}
+                onClick={() => toggleCompare(phone.id, phone.title)}
               >
                 {compareIds.includes(phone.id)
                   ? "Rimuovi dal confronto"

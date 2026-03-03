@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Layout from "./layout/Layout";
 import SmartphoneList from "./pages/SmartphoneList";
 import SmartphoneDetail from "./pages/SmartphoneDetail";
@@ -12,6 +12,37 @@ const API_URL = import.meta.env.VITE_API_URL;
 function App() {
   // Stato che contiene la lista degli smartphone
   const [smartphones, setSmartphones] = useState([]);
+  const [toasts, setToasts] = useState([]);
+  const toastTimeoutsRef = useRef(new Map());
+
+  useEffect(() => {
+    const timeoutMap = toastTimeoutsRef.current;
+    return () => {
+      timeoutMap.forEach((timeoutId) => clearTimeout(timeoutId));
+      timeoutMap.clear();
+    };
+  }, []);
+
+  function removeToast(toastId) {
+    const timeoutId = toastTimeoutsRef.current.get(toastId);
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      toastTimeoutsRef.current.delete(toastId);
+    }
+    setToasts((prev) => prev.filter((toast) => toast.id !== toastId));
+  }
+
+  function showToast(message, type = "info") {
+    const toastId = Date.now() + Math.random();
+    setToasts((prev) => [...prev, { id: toastId, message, type }]);
+
+    const timeoutId = setTimeout(() => {
+      setToasts((prev) => prev.filter((toast) => toast.id !== toastId));
+      toastTimeoutsRef.current.delete(toastId);
+    }, 2600);
+
+    toastTimeoutsRef.current.set(toastId, timeoutId);
+  }
 
   
   // Stato che contiene gli ID degli smartphone preferiti
@@ -28,17 +59,30 @@ function App() {
   }, [favorites]);
 
   // Funzione per aggiungere o rimuovere uno smartphone dai preferiti
-  function toggleFavorite(id) {
+  function toggleFavorite(id, title = "") {
+    const isAlreadyFavorite = favorites.includes(id);
+    const productName =
+      title || smartphones.find((phone) => phone.id === id)?.title || "Prodotto";
+
     //Prendo l'id dello smartphone cliccato
     setFavorites((prev) =>
       //Controllo, se l'id è già nei preferiti lo rimuovo, altrimenti lo aggiungo
       prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id]
     );
+
+    showToast(
+      isAlreadyFavorite
+        ? `"${productName}" rimosso dai preferiti`
+        : `"${productName}" aggiunto ai preferiti`,
+      isAlreadyFavorite ? "neutral" : "favorite"
+    );
   }
   
   // Funzione per svuotare tutti i preferiti
   function clearFavorites() {
+    if (favorites.length === 0) return;
     setFavorites([]);
+    showToast("Tutti i preferiti sono stati rimossi", "neutral");
   }
 
 
@@ -54,7 +98,12 @@ function App() {
 
 
   // Funzione per aggiungere o rimuovere uno smartphone dal confronto
-  function toggleCompare(id) {
+  function toggleCompare(id, title = "") {
+    const isAlreadyCompared = compareIds.includes(id);
+    const productName =
+      title || smartphones.find((phone) => phone.id === id)?.title || "Prodotto";
+    const isReplacing = !isAlreadyCompared && compareIds.length >= 2;
+
     setCompareIds((prev) => {
       if (prev.includes(id)) {
         // Se l'id è già nel confronto, lo rimuovo
@@ -67,6 +116,15 @@ function App() {
       // Altrimenti aggiungo il nuovo id
       return [...prev, id];
     });
+
+    showToast(
+      isAlreadyCompared
+        ? `"${productName}" rimosso dal confronto`
+        : isReplacing
+          ? `"${productName}" aggiunto al confronto (sostituito un modello)`
+          : `"${productName}" aggiunto al confronto`,
+      isAlreadyCompared ? "neutral" : "compare"
+    );
   }
   
 
@@ -115,7 +173,7 @@ function App() {
           <Route
             path="/compare"
             element={
-              <ComparePage smartphones={smartphones} compareIds={compareIds} />
+              <ComparePage compareIds={compareIds} />
             }
           />
 
@@ -132,6 +190,33 @@ function App() {
           />
         </Route>
       </Routes>
+
+      <div className="app-toast-stack" aria-live="polite" aria-atomic="true">
+        {toasts.map((toast) => (
+          <div key={toast.id} className={`app-toast app-toast-${toast.type}`}>
+            <div className="app-toast-content">
+              <i
+                className={`fa-solid ${
+                  toast.type === "favorite"
+                    ? "fa-heart"
+                    : toast.type === "compare"
+                      ? "fa-scale-balanced"
+                      : "fa-circle-info"
+                }`}
+              ></i>
+              <span>{toast.message}</span>
+            </div>
+            <button
+              type="button"
+              className="app-toast-close"
+              onClick={() => removeToast(toast.id)}
+              aria-label="Chiudi notifica"
+            >
+              <i className="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+        ))}
+      </div>
     </BrowserRouter>
   );
 }

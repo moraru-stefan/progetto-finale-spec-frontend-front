@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 
@@ -6,13 +7,19 @@ const API_URL = import.meta.env.VITE_API_URL;
 const ComparePage = ({ compareIds }) => {
   //Stato locale che ci permette di recuperare tutti i dettagli completi degli smartphone selezionati per il confronto
   const [phones, setPhones] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Non faccio il confronto se ci sono meno di 2 smartphone selezionati, interrompo la funzione
-    if (compareIds.length < 2) return;
+    if (compareIds.length < 2) {
+      setPhones([]);
+      return;
+    }
+    let cancelled = false;
 
     // Funzione asincrona per caricare i dettagli completi degli smartphone selezionati
     async function loadPhones() {
+      setLoading(true);
       try {
         const loaded = [];
         // Per ogni ID nello stato compareIds, faccio fetch al backend e recupero l'oggetto smartphone
@@ -22,77 +29,133 @@ const ComparePage = ({ compareIds }) => {
           loaded.push(data.smartphone);
         }
         // Aggiorno lo stato phones con i dati completi appena caricati
-        setPhones(loaded);
+        if (!cancelled) {
+          setPhones(loaded);
+        }
       } catch (err) {
         console.error(
           "Errore nel caricamento degli smartphone da confrontare:", err);
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
     }
        // Richiamo la funzione per eseguire il fetch.   
     loadPhones();
+    return () => {
+      cancelled = true;
+    };
   }, [compareIds]);
+
+  if (compareIds.length < 2) {
+    return (
+      <div className="compare-page">
+        <section className="compare-empty text-center">
+          <i className="fa-solid fa-scale-balanced"></i>
+          <h1 className="h4 mt-3">Confronto non disponibile</h1>
+          <p className="text-muted mb-3">
+            Seleziona almeno 2 smartphone dalla vetrina per attivare il confronto.
+          </p>
+          <Link to="/smartphones" className="btn compare-empty-btn">
+            Scegli smartphone
+          </Link>
+        </section>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="compare-page">
+        <section className="compare-loading text-center">
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Caricamento...</span>
+          </div>
+          <p className="mt-3 mb-0">Caricamento confronto in corso...</p>
+        </section>
+        <Footer />
+      </div>
+    );
+  }
 
   if (phones.length < 2) {
     return (
-      <div>
-        <h1 className="mb-3">Confronta</h1>
-        <p className="text-muted">
-          Seleziona almeno 2 smartphone dalla lista per visualizzare il
-          confronto.
-        </p>
+      <div className="compare-page">
+        <section className="compare-empty text-center">
+          <i className="fa-regular fa-face-frown"></i>
+          <h1 className="h4 mt-3">Impossibile completare il confronto</h1>
+          <p className="text-muted mb-0">Riprova selezionando di nuovo i prodotti.</p>
+        </section>
+        <Footer />
       </div>
     );
   }
 
   // Destrutturo l'array phones nei due smartphone selezionati per poterli usare singolarmente nel confronto al posto di scrivere phones[0], phones[1].
   const [first, second] = phones;
+  const specs = [
+    { label: "Categoria", key: "category" },
+    { label: "Marca", key: "brand" },
+    { label: "Prezzo", key: "price", suffix: " €" },
+    { label: "Sistema operativo", key: "os" },
+    { label: "Schermo", key: "screenSize" },
+    { label: "RAM", key: "ram" },
+    { label: "Memoria", key: "storage" },
+  ];
 
   return (
-    <div className="row justify-content-center">
-      <div className="col-12 col-lg-10">
-        <h1 className="mb-3 h4 text-center">Confronto Smartphone</h1>
+    <div className="compare-page">
+      <section className="compare-hero mb-4">
+        <p className="compare-kicker mb-2">Comparatore</p>
+        <h1 className="h3 mb-1">Confronto fianco a fianco</h1>
+        <p className="mb-0">
+          Valuta in un colpo d'occhio quale modello è più adatto alle tue esigenze.
+        </p>
+      </section>
 
-        <div className="card-compare-container row g-3 align-items-start">
-          {[first, second].map((phone) => (
-            <div key={phone.id} className="col-6 col-md-6">
-              <div className="card shadow-sm">
-                <div className="text-center pt-3">
-                  <img
-                    src={phone.imageUrl}
-                    alt={phone.title}
-                    className="phone-detail-img mb-2"
-                  />
-                </div>
-                <div className="card-body py-3">
-                  <h2 className="h6 mb-2 text-center">{phone.title}</h2>
-
-                  <p className="mb-1">
-                    <strong>Categoria:</strong> {phone.category}
-                  </p>
-                  <p className="mb-1">
-                    <strong>Marca:</strong> {phone.brand}
-                  </p>
-                  <p className="mb-1">
-                    <strong>Prezzo:</strong> {phone.price} €
-                  </p>
-                  <p className="mb-1">
-                    <strong>Sistema operativo:</strong> {phone.os}
-                  </p>
-                  <p className="mb-1">
-                    <strong>Schermo:</strong> {phone.screenSize}
-                  </p>
-                  <p className="mb-1">
-                    <strong>RAM:</strong> {phone.ram}
-                  </p>
-                  <p className="mb-0">
-                    <strong>Memoria:</strong> {phone.storage}
-                  </p>
-                </div>
+      <div className="row g-4 mb-4">
+        {[first, second].map((phone, index) => (
+          <div key={phone.id} className="col-12 col-md-6">
+            <article className="compare-phone-card h-100">
+              <p className="compare-slot mb-2">Modello {index + 1}</p>
+              <div className="compare-phone-image">
+                <img src={phone.imageUrl} alt={phone.title} className="phone-detail-img" />
               </div>
-            </div>
-          ))}
-        </div>
+              <h2 className="compare-phone-title">{phone.title}</h2>
+              <p className="compare-phone-price mb-0">{phone.price} €</p>
+              <Link className="btn compare-detail-btn mt-3" to={`/smartphones/${phone.id}`}>
+                Vai ai dettagli
+              </Link>
+            </article>
+          </div>
+        ))}
       </div>
+
+      <section className="compare-specs-card mb-4">
+        <h3 className="h5 mb-3">Specifiche a confronto</h3>
+        <div className="table-responsive">
+          <table className="table compare-table mb-0 align-middle">
+            <thead>
+              <tr>
+                <th>Caratteristica</th>
+                <th>{first.title}</th>
+                <th>{second.title}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {specs.map((spec) => (
+                <tr key={spec.key}>
+                  <td>{spec.label}</td>
+                  <td>{`${first[spec.key]}${spec.suffix || ""}`}</td>
+                  <td>{`${second[spec.key]}${spec.suffix || ""}`}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
       <Footer />
     </div>
   );
