@@ -105,115 +105,146 @@ const SmartphoneList = ({
   }, [fullPhones, search, categoryFilter, sortDirection]);
 
   return (
-    <div>
-      <h1 className="mb-3">Lista Telefoni</h1>
-
-      <div className="row g-2 mb-3">
-        {/* Input per ricerca per titolo */}
-        <div className="col-12 col-md-4 col-lg-8">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Cerca per titolo..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+    <div className="shop-page">
+      <section className="shop-hero mb-4">
+        <div className="shop-hero-content">
+          <p className="shop-kicker mb-2">SmartphoneHub Store</p>
+          <h1 className="shop-title-main">Scopri il prossimo smartphone perfetto</h1>
+          <p className="shop-subtitle mb-0">
+            Offerte, confronto rapido e dettagli completi in una sola vetrina.
+          </p>
         </div>
-
-        {/* Select per filtro per categoria */}
-        <div className="col-6 col-md-4 col-lg-2">
-          <select
-            className="form-select"
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-          >
-            <option value="">Tutte le categorie</option>
-            {categories.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Select per ordinamento del titolo */}
-        <div className="col-6 col-md-4 col-lg-2">
-          <select
-            className="form-select"
-            value={sortDirection}
-            onChange={(e) => setSortDirection(e.target.value)}
-          >
-            <option value="asc">Titolo A-Z</option>
-            <option value="desc">Titolo Z-A</option>
-          </select>
-        </div>
-      </div>
-
-      {/* Lista filtrata e ordinata */}
-    {loading ? (
-    <div className="text-center my-5">
-      <div className="spinner-border text-primary" role="status">
-        <span className="visually-hidden">Caricamento...</span>
-      </div>
-      <p className="mt-2">
-        Caricamento dati… al primo accesso potrebbe richiedere qualche istante.
-      </p>
-    </div>
-  ) : filteredSmartphones.length === 0 ? (
-    <p className="text-muted">Nessun risultato trovato per "{search}"</p>
-  ) : (
-    <div className="row g-3">
-      {filteredSmartphones.map((phone) => (
-        <div key={phone.id} className="col-6 col-md-4 col-lg-2">
-          <div className="card shadow-sm h-100">
-            <div className="card-body d-flex flex-column position-relative">
-              <button
-                className="btn-favorites btn btn-sm btn-outline-primary"
-                onClick={() => toggleFavorite(phone.id)}
-              >
-                {favorites.includes(phone.id) ? (
-                  <i className="fa-solid fa-heart"></i>
-                ) : (
-                  <i className="fa-regular fa-heart"></i>
-                )}
-              </button>
-
-              <div className="text-center">
-                <img
-                  src={phone.imageUrl}
-                  alt={phone.title}
-                  className="phone-thumb"
-                />
-              </div>
-              <div className="mt-2 text-center">
-                <Link
-                  className="btn btn-primary"
-                  to={`/smartphones/${phone.id}`}
-                >
-                  Dettagli
-                </Link>
-              </div>
-              <h2 className="h6 mt-2 text-center">{phone.title}</h2>
-              <p className="text-center">{phone.price} €</p>
-              <p className="text-muted mb-2 text-uppercase small">
-                {phone.category}
-              </p>
-              <div className="mt-auto d-flex flex-wrap gap-2">
-                <button
-                  className="btn btn-sm btn-outline-secondary"
-                  onClick={() => toggleCompare(phone.id)}
-                >
-                  {compareIds.includes(phone.id)
-                    ? "Rimuovi confronto"
-                    : "Confronta"}
-                </button>
-              </div>
-            </div>
+        <div className="shop-hero-stats">
+          <div className="shop-stat">
+            <span className="shop-stat-value">
+              {(fullPhones.length || smartphones.length).toString()}
+            </span>
+            <span className="shop-stat-label">Prodotti</span>
+          </div>
+          <div className="shop-stat">
+            <span className="shop-stat-value">{categories.length}</span>
+            <span className="shop-stat-label">Categorie</span>
+          </div>
+          <div className="shop-stat">
+            <span className="shop-stat-value">{favorites.length}</span>
+            <span className="shop-stat-label">Preferiti</span>
           </div>
         </div>
-      ))}
-    </div>
-  )}
+      </section>
+
+      <section className="shop-filter-panel mb-4">
+        <div className="row g-3 align-items-end">
+          <div className="col-12 col-lg-6">
+            <label className="shop-filter-label">Cerca modello</label>
+            <div className="shop-input-wrap">
+              <i className="fa-solid fa-magnifying-glass"></i>
+              <input
+                type="text"
+                className="form-control shop-input"
+                placeholder="Es. Galaxy, iPhone, Pixel..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="col-6 col-lg-3">
+            <label className="shop-filter-label">Categoria</label>
+            <select
+              className="form-select shop-select"
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+            >
+              <option value="">Tutte le categorie</option>
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="col-6 col-lg-3">
+            <label className="shop-filter-label">Ordina</label>
+            <select
+              className="form-select shop-select"
+              value={sortDirection}
+              onChange={(e) => setSortDirection(e.target.value)}
+            >
+              <option value="asc">Titolo A-Z</option>
+              <option value="desc">Titolo Z-A</option>
+            </select>
+          </div>
+        </div>
+        <p className="shop-results mb-0 mt-3">
+          {loading ? "Caricamento prodotti..." : `${filteredSmartphones.length} prodotti trovati`}
+        </p>
+      </section>
+
+      {loading ? (
+        <div className="shop-loading text-center my-5">
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Caricamento...</span>
+          </div>
+          <p className="mt-3 mb-0">
+            Caricamento dati in corso, potrebbe richiedere qualche istante.
+          </p>
+        </div>
+      ) : filteredSmartphones.length === 0 ? (
+        <div className="shop-empty-state text-center">
+          <i className="fa-regular fa-face-frown-open mb-3"></i>
+          <p className="mb-1">Nessun risultato trovato per "{search}"</p>
+          <small>Prova a cambiare ricerca o categoria.</small>
+        </div>
+      ) : (
+        <div className="row g-4">
+          {filteredSmartphones.map((phone) => {
+            const isFavorite = favorites.includes(phone.id);
+            const isInCompare = compareIds.includes(phone.id);
+
+            return (
+              <div key={phone.id} className="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <article className="shop-card h-100">
+                  <button
+                    className={`shop-favorite-btn ${isFavorite ? "active" : ""}`}
+                    onClick={() => toggleFavorite(phone.id)}
+                    aria-label={
+                      isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"
+                    }
+                  >
+                    {isFavorite ? (
+                      <i className="fa-solid fa-heart"></i>
+                    ) : (
+                      <i className="fa-regular fa-heart"></i>
+                    )}
+                  </button>
+
+                  <p className="shop-category">{phone.category}</p>
+
+                  <Link className="shop-image-wrap" to={`/smartphones/${phone.id}`}>
+                    <img src={phone.imageUrl} alt={phone.title} className="phone-thumb" />
+                  </Link>
+
+                  <div className="shop-card-body">
+                    <h2 className="shop-card-title">{phone.title}</h2>
+                    <p className="shop-price mb-3">{phone.price} €</p>
+
+                    <div className="d-grid gap-2">
+                      <Link className="btn shop-detail-btn" to={`/smartphones/${phone.id}`}>
+                        Dettagli prodotto
+                      </Link>
+                      <button
+                        className={`btn btn-sm shop-compare-btn ${isInCompare ? "active" : ""}`}
+                        onClick={() => toggleCompare(phone.id)}
+                      >
+                        {isInCompare ? "Rimuovi confronto" : "Aggiungi al confronto"}
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            );
+          })}
+        </div>
+      )}
 
       <Footer />
     </div>
