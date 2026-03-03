@@ -12,10 +12,7 @@ const HomePage = () => {
           </p>
         </div>
 
-        <Link 
-          to="/smartphones" 
-          className="btn btn-primary btn-lg px-5 py-3"
-        >
+        <Link to="/smartphones" className="btn btn-primary btn-lg px-5 py-3">
           <i className="fa-solid fa-list me-2"></i>
           Esplora la lista
         </Link>

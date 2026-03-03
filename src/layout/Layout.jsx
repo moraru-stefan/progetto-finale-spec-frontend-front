@@ -1,28 +1,54 @@
 import { Outlet, NavLink } from "react-router-dom";
 
+const navItems = [
+  { to: "/", label: "Home", icon: "fa-solid fa-house", tone: "nav-home" },
+  {
+    to: "/smartphones",
+    label: "Telefoni",
+    icon: "fa-solid fa-mobile-screen",
+    tone: "nav-shop",
+  },
+  {
+    to: "/compare",
+    label: "Confronta",
+    icon: "fa-solid fa-scale-balanced",
+    tone: "nav-compare",
+  },
+  {
+    to: "/favorites",
+    label: "Preferiti",
+    icon: "fa-solid fa-heart",
+    tone: "nav-favorites",
+  },
+];
+
 const Layout = () => {
   return (
-    <div className="container py-3">
-      <nav className="mb-3 d-flex justify-content-center align-items-center">
-        <div className="app-navbar">
-           <NavLink to="/" className="nav-link">
-            <i className="fa-solid fa-house nav-icon"></i>
-            <span>Home</span>
-          </NavLink>
-           <NavLink to="/smartphones" className="nav-link">
-            <i className="fa-solid fa-mobile-screen nav-icon"></i>
-            <span>Telefoni</span>
-          </NavLink>
-          <NavLink to="/compare" className="nav-link">
-            <i className="fa-solid fa-balance-scale nav-icon"></i>
-            <span className="ms-1">Confronta</span>
-          </NavLink>
-         <NavLink to="/favorites" className="nav-link">
-            <i className="fa-solid fa-heart nav-icon"></i>
-            <span>Preferiti</span>
-          </NavLink>
-        </div>
-      </nav>
+    <div className="container app-shell">
+      <header className="app-nav-wrap">
+        <nav className="app-navbar" aria-label="Navigazione principale">
+          <div className="app-navbar-brand">
+            <i className="fa-solid fa-mobile-screen-button"></i>
+            <span>SmartphoneHub</span>
+          </div>
+
+          <div className="app-navbar-links">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className={({ isActive }) =>
+                  `app-nav-link ${item.tone} ${isActive ? "is-active" : ""}`
+                }
+              >
+                <i className={`${item.icon} nav-icon`}></i>
+                <span>{item.label}</span>
+              </NavLink>
+            ))}
+          </div>
+        </nav>
+      </header>
+
       <Outlet />
       <i
         className="fa-regular fa-circle-up scroll-top-btn"
