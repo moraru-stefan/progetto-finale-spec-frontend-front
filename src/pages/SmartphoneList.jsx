@@ -106,7 +106,7 @@ const SmartphoneList = ({
 
   return (
     <div className="shop-page">
-      <section className="shop-hero mb-4">
+      <section className="shop-hero mb-0">
         <div className="shop-hero-content">
           <p className="shop-kicker mb-2">SmartphoneHub Store</p>
           <h1 className="shop-title-main">Scopri il prossimo smartphone perfetto</h1>
@@ -132,7 +132,7 @@ const SmartphoneList = ({
         </div>
       </section>
 
-      <section className="shop-filter-panel mb-4">
+      <section className="shop-filter-panel mb-0">
         <div className="row g-3 align-items-end">
           <div className="col-12 col-lg-6">
             <label className="shop-filter-label">Cerca modello</label>
@@ -194,7 +194,7 @@ const SmartphoneList = ({
           <small>Prova a cambiare ricerca o categoria.</small>
         </div>
       ) : (
-        <div className="row g-4">
+        <div className="row g-0 shop-products-row">
           {filteredSmartphones.map((phone) => {
             const isFavorite = favorites.includes(phone.id);
             const isInCompare = compareIds.includes(phone.id);
