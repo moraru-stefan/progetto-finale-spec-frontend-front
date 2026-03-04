@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import Footer from "../components/Footer";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -189,7 +188,7 @@ const FavoritesPage = ({
   // Se non ci sono preferiti, mostro un messaggio
   if (favorites.length === 0) {
     return (
-      <div className="favorites-page">
+      <div className="favorites-page favorites-page-empty-state">
         <section className="favorites-empty text-center">
           <i className="fa-regular fa-heart"></i>
           <h1 className="h4 mt-3">La tua wishlist è vuota</h1>
@@ -200,7 +199,6 @@ const FavoritesPage = ({
             Vai alla vetrina
           </Link>
         </section>
-        <Footer />
       </div>
     );
   }
@@ -269,7 +267,6 @@ const FavoritesPage = ({
         ))}
       </div>
       {confirmDialog}
-      <Footer />
     </div>
   );
 };

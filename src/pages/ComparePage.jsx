@@ -77,7 +77,7 @@ const ComparePage = ({ compareIds, toggleCompare }) => {
   if (compareIds.length < 2) {
     const hasOnePhone = compareIds.length === 1;
     return (
-      <div className="compare-page">
+      <div className="compare-page compare-page-empty-state">
         <section className="compare-empty text-center">
           <i className={`fa-solid ${hasOnePhone ? "fa-circle-info" : "fa-scale-balanced"}`}></i>
           <h1 className="h4 mt-3">
@@ -97,12 +97,12 @@ const ComparePage = ({ compareIds, toggleCompare }) => {
               <span>Aggiungi un altro telefono!</span>
             </button>
           ) : (
-            <Link to="/smartphones" className="btn compare-empty-btn">
+            <Link to="/smartphones" className="btn compare-empty-btn favorites-empty-btn">
               Scegli smartphone
             </Link>
           )}
         </section>
-        <Footer />
+        {hasOnePhone ? <Footer /> : null}
       </div>
     );
   }
@@ -259,8 +259,8 @@ const ComparePage = ({ compareIds, toggleCompare }) => {
         </div>
       </section>
 
-      {confirmDialog}
       <Footer />
+      {confirmDialog}
     </div>
   );
 };
