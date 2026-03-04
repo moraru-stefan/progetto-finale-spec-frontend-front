@@ -67,7 +67,9 @@ const Layout = () => {
       </header>
 
       <main className="app-main container">
-        <Outlet />
+        <div key={location.pathname} className="route-enter">
+          <Outlet />
+        </div>
       </main>
       {showScrollTop && hasScrolledEnough ? (
         <button

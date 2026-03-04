@@ -24,6 +24,21 @@ body {
   padding-top: 1rem;
 }
 
+.route-enter {
+  animation: route-enter 0.42s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes route-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.995);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .app-nav-wrap {
   position: fixed;
   inset: 0 0 auto 0;
@@ -210,6 +225,12 @@ body {
 
   .app-navbar-spacer {
     width: 175px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-enter {
+    animation: none;
   }
 }
 
@@ -815,17 +836,29 @@ body {
   padding: 0;
 }
 
-.shop-detail-btn {
+.btn.shop-detail-btn {
+  --bs-btn-color: #fff;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-color: #fff;
+  --bs-btn-disabled-color: #fff;
   border: none;
   border-radius: 12px;
   padding: 0.55rem 0.8rem;
   font-weight: 700;
   background: linear-gradient(120deg, #ff9340 0%, #ff5d36 100%);
-  color: #fff;
+  color: #fff !important;
+  text-decoration: none;
 }
 
-.shop-detail-btn:hover {
-  color: #fff;
+.btn.shop-detail-btn:hover,
+.btn.shop-detail-btn:focus,
+.btn.shop-detail-btn:active,
+.btn.shop-detail-btn:visited {
+  color: #fff !important;
+  text-decoration: none;
+}
+
+.btn.shop-detail-btn:hover {
   filter: brightness(1.05);
 }
 
@@ -990,6 +1023,12 @@ body {
 .detail-list-btn:hover {
   color: #fff;
   filter: brightness(1.04);
+}
+
+.btn.detail-list-btn:focus,
+.btn.detail-list-btn:active,
+.btn.detail-list-btn:visited {
+  color: #fff !important;
 }
 
 .detail-hero {
@@ -1211,6 +1250,8 @@ body {
   box-shadow: 0 10px 22px rgba(14, 58, 116, 0.1);
   padding: 1rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .compare-slot {
@@ -1228,12 +1269,21 @@ body {
 .compare-phone-image {
   background: #fff;
   border: 1px solid #d7e7ff;
-  min-height: 230px;
+  height: 230px;
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 0.9rem;
+  padding: 0.65rem;
+  overflow: hidden;
+}
+
+.compare-phone-image .phone-detail-img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
 }
 
 .compare-phone-title {
@@ -1241,12 +1291,17 @@ body {
   font-size: 1.05rem;
   color: #0f2d51;
   margin-bottom: 0.5rem;
+  min-height: 2.6rem;
 }
 
 .compare-phone-price {
   font-size: 1.35rem;
   font-weight: 800;
   color: #f06413;
+}
+
+.compare-phone-card .compare-detail-btn {
+  margin-top: auto;
 }
 
 .compare-detail-btn,
