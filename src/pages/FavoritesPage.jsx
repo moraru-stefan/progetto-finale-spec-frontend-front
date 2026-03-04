@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Footer from "../components/Footer";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -12,6 +13,8 @@ const FavoritesPage = ({
 }) => {
   const [favoritePhones, setFavoritePhones] = useState([]);
   const [loadingFavorites, setLoadingFavorites] = useState(false);
+  const [phoneToRemove, setPhoneToRemove] = useState(null);
+  const [showClearAllConfirm, setShowClearAllConfirm] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -61,6 +64,128 @@ const FavoritesPage = ({
     };
   }, [favorites, smartphones]);
 
+  useEffect(() => {
+    if (!phoneToRemove && !showClearAllConfirm) return;
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setPhoneToRemove(null);
+        setShowClearAllConfirm(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [phoneToRemove, showClearAllConfirm]);
+
+  function askRemoveFavorite(phone) {
+    setShowClearAllConfirm(false);
+    setPhoneToRemove(phone);
+  }
+
+  function confirmRemoveFavorite() {
+    if (!phoneToRemove) return;
+    const targetPhone = phoneToRemove;
+    setPhoneToRemove(null);
+    toggleFavorite(targetPhone.id, targetPhone.title);
+  }
+
+  function askClearAllFavorites() {
+    setPhoneToRemove(null);
+    setShowClearAllConfirm(true);
+  }
+
+  function confirmClearAllFavorites() {
+    setShowClearAllConfirm(false);
+    clearFavorites();
+  }
+
+  const confirmDialog = phoneToRemove
+    ? createPortal(
+      <div
+        className="compare-confirm-backdrop"
+        onClick={() => setPhoneToRemove(null)}
+        role="presentation"
+      >
+        <div
+          className="compare-confirm-card"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="favoriteConfirmTitle"
+          onClick={(event) => event.stopPropagation()}
+        >
+          <p className="compare-confirm-kicker mb-2">Conferma azione</p>
+          <h2 id="favoriteConfirmTitle" className="h5 mb-2">
+            Rimuovere dai preferiti?
+          </h2>
+          <p className="mb-3 compare-confirm-text">
+            Vuoi rimuovere <strong>"{phoneToRemove.title}"</strong> dalla lista preferiti?
+          </p>
+
+          <div className="compare-confirm-actions">
+            <button
+              type="button"
+              className="btn compare-confirm-cancel"
+              onClick={() => setPhoneToRemove(null)}
+            >
+              Annulla
+            </button>
+            <button
+              type="button"
+              className="btn compare-confirm-remove"
+              onClick={confirmRemoveFavorite}
+            >
+              Rimuovi
+            </button>
+          </div>
+        </div>
+      </div>,
+      document.body
+    )
+    : showClearAllConfirm
+      ? createPortal(
+        <div
+          className="compare-confirm-backdrop"
+          onClick={() => setShowClearAllConfirm(false)}
+          role="presentation"
+        >
+          <div
+            className="compare-confirm-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="favoritesClearAllTitle"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <p className="compare-confirm-kicker mb-2">Conferma azione</p>
+            <h2 id="favoritesClearAllTitle" className="h5 mb-2">
+              Rimuovere tutti i preferiti?
+            </h2>
+            <p className="mb-3 compare-confirm-text">
+              Vuoi rimuovere tutti gli smartphone dalla lista preferiti?
+            </p>
+
+            <div className="compare-confirm-actions">
+              <button
+                type="button"
+                className="btn compare-confirm-cancel"
+                onClick={() => setShowClearAllConfirm(false)}
+              >
+                Annulla
+              </button>
+              <button
+                type="button"
+                className="btn compare-confirm-remove"
+                onClick={confirmClearAllFavorites}
+              >
+                Rimuovi tutti
+              </button>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )
+    : null;
+
   // Se non ci sono preferiti, mostro un messaggio
   if (favorites.length === 0) {
     return (
@@ -92,7 +217,7 @@ const FavoritesPage = ({
         <button
           type="button"
           className="btn favorites-clear-btn"
-          onClick={clearFavorites}
+          onClick={askClearAllFavorites}
         >
           <i className="fa-regular fa-trash-can me-2"></i>
           Rimuovi tutti
@@ -112,6 +237,14 @@ const FavoritesPage = ({
         {favoritePhones.map((phone) => (
           <div key={phone.id} className="col-12 col-sm-6 col-lg-4">
             <article className="favorite-card h-100">
+              <button
+                type="button"
+                className="btn compare-remove-btn favorite-remove-icon-btn"
+                onClick={() => askRemoveFavorite(phone)}
+                aria-label={`Rimuovi ${phone.title} dai preferiti`}
+              >
+                <i className="fa-solid fa-xmark"></i>
+              </button>
               <div className="favorite-image-wrap">
                 {phone.imageUrl ? (
                   <img src={phone.imageUrl} alt={phone.title} className="phone-thumb" />
@@ -130,17 +263,12 @@ const FavoritesPage = ({
                 <Link className="btn favorite-detail-btn" to={`/smartphones/${phone.id}`}>
                   Vedi dettagli
                 </Link>
-                <button
-                  className="btn favorite-remove-btn"
-                  onClick={() => toggleFavorite(phone.id, phone.title)}
-                >
-                  Rimuovi dai preferiti
-                </button>
               </div>
             </article>
           </div>
         ))}
       </div>
+      {confirmDialog}
       <Footer />
     </div>
   );

@@ -1185,6 +1185,8 @@ body {
   background: #fff;
   box-shadow: none;
   min-height: calc(100vh - 6.5rem);
+  display: flex;
+  flex-direction: column;
 }
 
 .shop-hero {
@@ -1291,6 +1293,12 @@ body {
 .shop-results {
   color: #2764a0;
   font-weight: 600;
+}
+
+.shop-content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .shop-card {
@@ -1442,13 +1450,57 @@ body {
   color: #1c4d80;
 }
 
-.shop-loading .spinner-border {
-  color: #ff6f3c;
+.shop-loading {
+  flex: 1;
+  margin: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  background: linear-gradient(165deg, #ffffff 0%, #f4f9ff 100%);
+}
+
+.shop-spinner-wrap {
+  width: 94px;
+  height: 94px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, #ecf5ff 70%, #ddecff 100%);
+  border: 1px solid #cce0f8;
+  display: grid;
+  place-items: center;
+  position: relative;
+  box-shadow: 0 10px 24px rgba(24, 95, 165, 0.16);
+}
+
+.shop-loading .shop-spinner {
+  color: #1c86ce;
+  width: 3.15rem;
+  height: 3.15rem;
+  border-width: 0.27rem;
+}
+
+.shop-spinner-wrap i {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fff;
+  color: #1d5f9d;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 10px rgba(15, 84, 150, 0.2);
 }
 
 .shop-empty-state i {
   font-size: 2.1rem;
   color: #ff6f3c;
+}
+
+.shop-page .app-footer {
+  margin-top: auto !important;
 }
 
 @media (max-width: 992px) {
@@ -1768,9 +1820,12 @@ body {
 }
 
 .compare-page .app-footer,
-.favorites-page .app-footer,
-.shop-page .app-footer {
+.favorites-page .app-footer {
   margin-top: 0 !important;
+}
+
+.shop-page .app-footer {
+  margin-top: auto !important;
 }
 
 .compare-hero {
@@ -2128,11 +2183,12 @@ body {
 .favorite-card {
   border-radius: 0;
   border: 1px solid #f3d4ea;
-  padding: 1rem;
+  padding: 1.2rem 1rem 1rem;
   background: #fff;
   box-shadow: 0 10px 20px rgba(133, 41, 97, 0.11);
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .favorite-image-wrap {
@@ -2201,6 +2257,12 @@ body {
   color: #952761;
   font-weight: 700;
   background: #ffeaf4;
+}
+
+.favorite-remove-icon-btn {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
 }
 
 .favorites-empty {

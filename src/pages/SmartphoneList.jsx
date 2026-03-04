@@ -178,72 +178,75 @@ const SmartphoneList = ({
         </p>
       </section>
 
-      {loading ? (
-        <div className="shop-loading text-center my-5">
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Caricamento...</span>
+      <section className="shop-content-area">
+        {loading ? (
+          <div className="shop-loading text-center" role="status" aria-live="polite">
+            <div className="shop-spinner-wrap">
+              <div className="spinner-border shop-spinner" aria-hidden="true"></div>
+              <i className="fa-solid fa-mobile-screen-button" aria-hidden="true"></i>
+            </div>
+            <p className="mt-3 mb-0">
+              Caricamento dati in corso, potrebbe richiedere qualche istante.
+            </p>
           </div>
-          <p className="mt-3 mb-0">
-            Caricamento dati in corso, potrebbe richiedere qualche istante.
-          </p>
-        </div>
-      ) : filteredSmartphones.length === 0 ? (
-        <div className="shop-empty-state text-center">
-          <i className="fa-regular fa-face-frown-open mb-3"></i>
-          <p className="mb-1">Nessun risultato trovato per "{search}"</p>
-          <small>Prova a cambiare ricerca o categoria.</small>
-        </div>
-      ) : (
-        <div className="row g-0 shop-products-row">
-          {filteredSmartphones.map((phone) => {
-            const isFavorite = favorites.includes(phone.id);
-            const isInCompare = compareIds.includes(phone.id);
+        ) : filteredSmartphones.length === 0 ? (
+          <div className="shop-empty-state text-center">
+            <i className="fa-regular fa-face-frown-open mb-3"></i>
+            <p className="mb-1">Nessun risultato trovato per "{search}"</p>
+            <small>Prova a cambiare ricerca o categoria.</small>
+          </div>
+        ) : (
+          <div className="row g-0 shop-products-row">
+            {filteredSmartphones.map((phone) => {
+              const isFavorite = favorites.includes(phone.id);
+              const isInCompare = compareIds.includes(phone.id);
 
-            return (
-              <div key={phone.id} className="col-12 col-sm-6 col-lg-4 col-xl-3">
-                <article className="shop-card h-100">
-                  <button
-                    className={`shop-favorite-btn ${isFavorite ? "active" : ""}`}
-                    onClick={() => toggleFavorite(phone.id, phone.title)}
-                    aria-label={
-                      isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"
-                    }
-                  >
-                    {isFavorite ? (
-                      <i className="fa-solid fa-heart"></i>
-                    ) : (
-                      <i className="fa-regular fa-heart"></i>
-                    )}
-                  </button>
+              return (
+                <div key={phone.id} className="col-12 col-sm-6 col-lg-4 col-xl-3">
+                  <article className="shop-card h-100">
+                    <button
+                      className={`shop-favorite-btn ${isFavorite ? "active" : ""}`}
+                      onClick={() => toggleFavorite(phone.id, phone.title)}
+                      aria-label={
+                        isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"
+                      }
+                    >
+                      {isFavorite ? (
+                        <i className="fa-solid fa-heart"></i>
+                      ) : (
+                        <i className="fa-regular fa-heart"></i>
+                      )}
+                    </button>
 
-                  <p className="shop-category">{phone.category}</p>
+                    <p className="shop-category">{phone.category}</p>
 
-                  <Link className="shop-image-wrap" to={`/smartphones/${phone.id}`}>
-                    <img src={phone.imageUrl} alt={phone.title} className="phone-thumb" />
-                  </Link>
+                    <Link className="shop-image-wrap" to={`/smartphones/${phone.id}`}>
+                      <img src={phone.imageUrl} alt={phone.title} className="phone-thumb" />
+                    </Link>
 
-                  <div className="shop-card-body">
-                    <h2 className="shop-card-title">{phone.title}</h2>
-                    <p className="shop-price mb-3">{phone.price} €</p>
+                    <div className="shop-card-body">
+                      <h2 className="shop-card-title">{phone.title}</h2>
+                      <p className="shop-price mb-3">{phone.price} €</p>
 
-                    <div className="d-grid gap-2">
-                      <Link className="btn shop-detail-btn" to={`/smartphones/${phone.id}`}>
-                        Dettagli prodotto
-                      </Link>
-                      <button
-                        className={`btn btn-sm shop-compare-btn ${isInCompare ? "active" : ""}`}
-                        onClick={() => toggleCompare(phone.id, phone.title)}
-                      >
-                        {isInCompare ? "Rimuovi confronto" : "Aggiungi al confronto"}
-                      </button>
+                      <div className="d-grid gap-2">
+                        <Link className="btn shop-detail-btn" to={`/smartphones/${phone.id}`}>
+                          Dettagli prodotto
+                        </Link>
+                        <button
+                          className={`btn btn-sm shop-compare-btn ${isInCompare ? "active" : ""}`}
+                          onClick={() => toggleCompare(phone.id, phone.title)}
+                        >
+                          {isInCompare ? "Rimuovi confronto" : "Aggiungi al confronto"}
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </article>
-              </div>
-            );
-          })}
-        </div>
-      )}
+                  </article>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </section>
 
       <Footer />
     </div>
