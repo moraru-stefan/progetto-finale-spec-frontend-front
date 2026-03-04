@@ -1655,14 +1655,43 @@ body {
   border-radius: 0;
   background: #fff;
   box-shadow: none;
-  padding: 1rem;
+  padding: 1.2rem 1rem 1rem;
   text-align: center;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .compare-card-column + .compare-card-column {
   border-left: 1px solid #dfe3e8;
+}
+
+.compare-remove-btn {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: #eef2f7;
+  color: #546273;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+}
+
+.compare-remove-btn:hover {
+  background: #dde4ec;
+  color: #1f2937;
+}
+
+.compare-remove-btn:focus,
+.compare-remove-btn:active {
+  box-shadow: none !important;
+  color: #1f2937 !important;
 }
 
 .compare-slot {
@@ -1758,6 +1787,25 @@ body {
   color: #fff;
   background: #0b5ed7;
   border-color: #0b5ed7;
+}
+
+.compare-add-phone-btn {
+  min-width: 0;
+  width: auto;
+  font-size: 1rem;
+  padding: 0.72rem 1.2rem;
+  box-shadow: 0 10px 20px rgba(180, 63, 60, 0.24);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.compare-add-phone-btn .compare-add-phone-icon {
+  margin: 0;
+  line-height: 1;
+  font-size: 0.95rem;
 }
 
 .btn.compare-detail-btn:focus,

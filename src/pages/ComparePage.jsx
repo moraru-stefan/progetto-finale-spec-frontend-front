@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const ComparePage = ({ compareIds }) => {
+const ComparePage = ({ compareIds, toggleCompare }) => {
+  const navigate = useNavigate();
   //Stato locale che ci permette di recuperare tutti i dettagli completi degli smartphone selezionati per il confronto
   const [phones, setPhones] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -48,18 +49,41 @@ const ComparePage = ({ compareIds }) => {
     };
   }, [compareIds]);
 
+  function handleRemoveFromCompare(phone) {
+    const confirmed = window.confirm(
+      `Vuoi rimuovere "${phone.title}" dal confronto?`
+    );
+    if (!confirmed) return;
+    toggleCompare(phone.id, phone.title);
+  }
+
   if (compareIds.length < 2) {
+    const hasOnePhone = compareIds.length === 1;
     return (
       <div className="compare-page">
         <section className="compare-empty text-center">
-          <i className="fa-solid fa-scale-balanced"></i>
-          <h1 className="h4 mt-3">Confronto non disponibile</h1>
+          <i className={`fa-solid ${hasOnePhone ? "fa-circle-info" : "fa-scale-balanced"}`}></i>
+          <h1 className="h4 mt-3">
+            {hasOnePhone ? "Confronto incompleto" : "Confronto non disponibile"}
+          </h1>
           <p className="text-muted mb-3">
-            Seleziona almeno 2 smartphone dalla vetrina per attivare il confronto.
+            {hasOnePhone
+              ? "Hai rimosso uno smartphone: seleziona almeno un altro telefono per continuare il confronto."
+              : "Seleziona almeno 2 smartphone dalla vetrina per attivare il confronto."}
           </p>
-          <Link to="/smartphones" className="btn compare-empty-btn">
-            Scegli smartphone
-          </Link>
+          {hasOnePhone ? (
+            <button
+              type="button"
+              className="btn home-btn home-primary-btn compare-add-phone-btn"
+              onClick={() => navigate("/smartphones")}
+            >
+              <span>Aggiungi un altro telefono!</span>
+            </button>
+          ) : (
+            <Link to="/smartphones" className="btn compare-empty-btn">
+              Scegli smartphone
+            </Link>
+          )}
         </section>
         <Footer />
       </div>
@@ -120,6 +144,14 @@ const ComparePage = ({ compareIds }) => {
           {[first, second].map((phone, index) => (
             <div key={phone.id} className="col-12 col-md-6 compare-card-column">
               <article className="compare-phone-card h-100">
+                <button
+                  type="button"
+                  className="btn compare-remove-btn"
+                  onClick={() => handleRemoveFromCompare(phone)}
+                  aria-label={`Rimuovi ${phone.title} dal confronto`}
+                >
+                  <i className="fa-solid fa-xmark"></i>
+                </button>
                 <p className="compare-slot mb-2">Modello {index + 1}</p>
                 <div className="compare-phone-image">
                   {phone.imageUrl ? (

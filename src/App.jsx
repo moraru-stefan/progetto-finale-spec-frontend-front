@@ -99,10 +99,14 @@ function App() {
 
   // Funzione per aggiungere o rimuovere uno smartphone dal confronto
   function toggleCompare(id, title = "") {
+    const getPhoneTitle = (phoneId) =>
+      smartphones.find((phone) => String(phone.id) === String(phoneId))?.title;
+
     const isAlreadyCompared = compareIds.includes(id);
     const productName =
-      title || smartphones.find((phone) => phone.id === id)?.title || "Prodotto";
+      title || getPhoneTitle(id) || "Prodotto";
     const isReplacing = !isAlreadyCompared && compareIds.length >= 2;
+    const replacedPhoneName = isReplacing ? getPhoneTitle(compareIds[0]) : "";
 
     setCompareIds((prev) => {
       if (prev.includes(id)) {
@@ -121,7 +125,7 @@ function App() {
       isAlreadyCompared
         ? `"${productName}" rimosso dal confronto`
         : isReplacing
-          ? `"${productName}" aggiunto al confronto (sostituito un modello)`
+          ? `"${productName}" aggiunto al confronto (sostituito con "${replacedPhoneName || "il primo telefono"}")`
           : `"${productName}" aggiunto al confronto`,
       isAlreadyCompared ? "neutral" : "compare"
     );
@@ -173,7 +177,10 @@ function App() {
           <Route
             path="/compare"
             element={
-              <ComparePage compareIds={compareIds} />
+              <ComparePage
+                compareIds={compareIds}
+                toggleCompare={toggleCompare}
+              />
             }
           />
 
