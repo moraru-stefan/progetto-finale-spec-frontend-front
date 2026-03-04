@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Footer from "../components/Footer";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -9,6 +10,7 @@ const ComparePage = ({ compareIds, toggleCompare }) => {
   //Stato locale che ci permette di recuperare tutti i dettagli completi degli smartphone selezionati per il confronto
   const [phones, setPhones] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [phoneToRemove, setPhoneToRemove] = useState(null);
 
   useEffect(() => {
     // Non faccio il confronto se ci sono meno di 2 smartphone selezionati, interrompo la funzione
@@ -49,12 +51,27 @@ const ComparePage = ({ compareIds, toggleCompare }) => {
     };
   }, [compareIds]);
 
+  useEffect(() => {
+    if (!phoneToRemove) return;
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setPhoneToRemove(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [phoneToRemove]);
+
   function handleRemoveFromCompare(phone) {
-    const confirmed = window.confirm(
-      `Vuoi rimuovere "${phone.title}" dal confronto?`
-    );
-    if (!confirmed) return;
-    toggleCompare(phone.id, phone.title);
+    setPhoneToRemove(phone);
+  }
+
+  function confirmRemoveFromCompare() {
+    if (!phoneToRemove) return;
+    toggleCompare(phoneToRemove.id, phoneToRemove.title);
+    setPhoneToRemove(null);
   }
 
   if (compareIds.length < 2) {
@@ -129,6 +146,50 @@ const ComparePage = ({ compareIds, toggleCompare }) => {
     { label: "Memoria", key: "storage" },
   ];
 
+  const confirmDialog = phoneToRemove
+    ? createPortal(
+      <div
+        className="compare-confirm-backdrop"
+        onClick={() => setPhoneToRemove(null)}
+        role="presentation"
+      >
+        <div
+          className="compare-confirm-card"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="compareConfirmTitle"
+          onClick={(event) => event.stopPropagation()}
+        >
+          <p className="compare-confirm-kicker mb-2">Conferma azione</p>
+          <h2 id="compareConfirmTitle" className="h5 mb-2">
+            Rimuovere dal confronto?
+          </h2>
+          <p className="mb-3 compare-confirm-text">
+            Vuoi rimuovere <strong>"{phoneToRemove.title}"</strong> dal confronto?
+          </p>
+
+          <div className="compare-confirm-actions">
+            <button
+              type="button"
+              className="btn compare-confirm-cancel"
+              onClick={() => setPhoneToRemove(null)}
+            >
+              Annulla
+            </button>
+            <button
+              type="button"
+              className="btn compare-confirm-remove"
+              onClick={confirmRemoveFromCompare}
+            >
+              Rimuovi
+            </button>
+          </div>
+        </div>
+      </div>,
+      document.body
+    )
+    : null;
+
   return (
     <div className="compare-page">
       <section className="compare-hero mb-4">
@@ -197,6 +258,8 @@ const ComparePage = ({ compareIds, toggleCompare }) => {
           </table>
         </div>
       </section>
+
+      {confirmDialog}
       <Footer />
     </div>
   );
