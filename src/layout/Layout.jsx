@@ -19,8 +19,19 @@ const navItems = [
 
 const Layout = () => {
   const location = useLocation();
-  const showScrollTop = location.pathname === "/smartphones";
+  const isUnifiedPage =
+    location.pathname === "/" ||
+    location.pathname === "/smartphones" ||
+    location.pathname === "/compare" ||
+    location.pathname === "/favorites";
+  const showScrollTop = location.pathname === "/" || location.pathname === "/smartphones";
   const [hasScrolledEnough, setHasScrolledEnough] = useState(false);
+  const mainClassName = isUnifiedPage ? "app-main app-main-home" : "app-main container";
+  const shellClassName = isUnifiedPage ? "app-shell app-shell-home" : "app-shell";
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   useEffect(() => {
     if (!showScrollTop) {
@@ -39,10 +50,15 @@ const Layout = () => {
   }, [showScrollTop]);
 
   return (
-    <div className="app-shell">
+    <div className={shellClassName}>
       <header className="app-nav-wrap">
         <nav className="app-navbar" aria-label="Navigazione principale">
-          <Link to="/" className="app-navbar-brand" aria-label="Vai alla home">
+          <Link
+            to="/"
+            className="app-navbar-brand"
+            aria-label="Vai alla home"
+            onClick={scrollToTop}
+          >
             <i className="fa-solid fa-mobile-screen-button"></i>
             <span className="app-brand-text">
               <span className="app-brand-title">SmartphoneHub</span>
@@ -66,7 +82,7 @@ const Layout = () => {
         </nav>
       </header>
 
-      <main className="app-main container">
+      <main className={mainClassName}>
         <div key={location.pathname} className="route-enter">
           <Outlet />
         </div>
@@ -75,7 +91,7 @@ const Layout = () => {
         <button
           type="button"
           className="scroll-top-btn"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          onClick={scrollToTop}
           aria-label="Torna su"
         >
           <i className="fa-solid fa-arrow-up"></i>

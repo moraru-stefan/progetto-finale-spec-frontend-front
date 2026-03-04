@@ -115,23 +115,32 @@ const ComparePage = ({ compareIds }) => {
         </p>
       </section>
 
-      <div className="row g-4 mb-4">
-        {[first, second].map((phone, index) => (
-          <div key={phone.id} className="col-12 col-md-6">
-            <article className="compare-phone-card h-100">
-              <p className="compare-slot mb-2">Modello {index + 1}</p>
-              <div className="compare-phone-image">
-                <img src={phone.imageUrl} alt={phone.title} className="phone-detail-img" />
-              </div>
-              <h2 className="compare-phone-title">{phone.title}</h2>
-              <p className="compare-phone-price mb-0">{phone.price} €</p>
-              <Link className="btn compare-detail-btn mt-3" to={`/smartphones/${phone.id}`}>
-                Vai ai dettagli
-              </Link>
-            </article>
-          </div>
-        ))}
-      </div>
+      <section className="compare-cards-surface mb-4">
+        <div className="row g-0">
+          {[first, second].map((phone, index) => (
+            <div key={phone.id} className="col-12 col-md-6 compare-card-column">
+              <article className="compare-phone-card h-100">
+                <p className="compare-slot mb-2">Modello {index + 1}</p>
+                <div className="compare-phone-image">
+                  {phone.imageUrl ? (
+                    <img src={phone.imageUrl} alt={phone.title} className="phone-detail-img" />
+                  ) : (
+                    <i className="fa-solid fa-mobile-screen-button"></i>
+                  )}
+                </div>
+                <h2 className="compare-phone-title">{phone.title}</h2>
+                <p className="compare-phone-price mb-0">{phone.price} €</p>
+                <p className="compare-phone-meta mb-1">
+                  {phone.category || "Smartphone"}
+                </p>
+                <Link className="btn compare-detail-btn mt-3 w-100" to={`/smartphones/${phone.id}`}>
+                  Vedi dettagli
+                </Link>
+              </article>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section className="compare-specs-card mb-4">
         <h3 className="h5 mb-3">Specifiche a confronto</h3>

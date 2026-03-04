@@ -108,7 +108,7 @@ const FavoritesPage = ({
         </section>
       ) : null}
 
-      <div className="row g-4">
+      <div className="row g-0">
         {favoritePhones.map((phone) => (
           <div key={phone.id} className="col-12 col-sm-6 col-lg-4">
             <article className="favorite-card h-100">
